@@ -5,6 +5,7 @@ sudo apt update
 sudo apt-get update
 sudo apt upgrade
 sudo apt-get install build-essential
+sudo apt-get curl
 
 # for zsh
 cp zshrc ~/.zshrc
