@@ -58,5 +58,4 @@ export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || c
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
 alias ls='ls --color=auto'
-alias l='ls'
 alias ll='ls -al'
