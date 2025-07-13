@@ -8,8 +8,8 @@ sudo apt-get install build-essential
 sudo apt-get install curl
 
 # for zsh
-ln -s .zshrc ~/.zshrc
-ln -s .p10k.zsh ~/.p10k.zsh
+ln -s zshrc ~/.zshrc
+ln -s p10k.zsh ~/.p10k.zsh
 sudo apt install zsh
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 zinit self-update
@@ -21,14 +21,14 @@ sudo apt install bat
 sudo apt-get install wget ca-certificates
 
 # for lazygit
-ln -s .config/lazygit ~/.config
+ln -s config/lazygit ~/.config/lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit -D -t /usr/local/bin/
 
 # for neovim
-ln -s .config/nvim ~/.config
+ln -s config/nvim ~/.config/nvim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
@@ -50,3 +50,5 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # for github
 git config --global user.name ocean
 git config --global user.email wenocean123@gmail.com
+
+echo "$ zsh; chsh -s $(which zsh)"
