@@ -6,6 +6,8 @@ sudo apt-get update
 sudo apt upgrade
 sudo apt-get install build-essential
 
+cp -r * ~/
+
 # for zsh
 sudo apt install zsh
 sudo chsh -s $(which zsh)
