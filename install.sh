@@ -20,6 +20,8 @@ sudo apt install bat
 # for wsl vscode
 sudo apt-get install wget ca-certificates
 
+mkdir ~/.config
+
 # for lazygit
 ln -s ~/.dotfiles/config/lazygit ~/.config/lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
