@@ -26,6 +26,7 @@ LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/re
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit -D -t /usr/local/bin/
+rm -f lazygit lazygit.tar.gz 
 
 # for neovim
 ln -s ~/.dotfiles/config/nvim ~/.config/nvim
@@ -33,6 +34,7 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x8
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 sudo apt install luarocks
+rm -f nvim-linux-x86_64.tar.gz
 
 # for ripgrep
 sudo apt-get install ripgrep
