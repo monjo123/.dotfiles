@@ -58,7 +58,3 @@ ptouch() {
 export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
-autoload -Uz compinit && compinit
-
-# 根據檔案類型上不同顏色：讓資料夾顯示藍底白字
-zstyle ':completion:*' list-colors 'di=30;47'
