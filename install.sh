@@ -6,9 +6,9 @@ sudo apt-get update
 sudo apt upgrade
 sudo apt-get install build-essential
 
-cp -r !(install.sh) ~/
-
 # for zsh
+cp zshrc ~/.zshrc
+cp p10k.zsh
 sudo apt install zsh
 sudo chsh -s $(which zsh)
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
@@ -19,6 +19,8 @@ sudo apt install bat
 
 # for wsl vscode
 sudo apt-get install wget ca-certificates
+
+cp -r config ~/.config
 
 # for lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
