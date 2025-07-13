@@ -58,6 +58,6 @@ ptouch() {
 export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
-alias l='ls -F'
+alias ls='ls --color=auto'
+alias l='ls'
 alias ll='ls -al'
-
