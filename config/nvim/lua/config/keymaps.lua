@@ -7,7 +7,4 @@ vim.keymap.set("n", "<leader>bw", function()
   vim.cmd("bdelete") -- 關閉目前 buffer，但保留分割視窗
 end, { desc = "保存並關閉 buffer" })
 
-vim.keymap.set("n", "<leader>t",
-  function() require("snacks").terminal(nil, { win = { position = "right" } }) end,
-  { desc = "Terminal 右側分割" })
 

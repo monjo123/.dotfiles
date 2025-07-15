@@ -19,6 +19,12 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+bindkey -M vicmd '^R' undefined-key
+bindkey -M viins '^R' undefined-key
+
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -59,3 +65,4 @@ export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || c
 
 alias ls='ls --color=auto'
 alias ll='ls -al'
+
