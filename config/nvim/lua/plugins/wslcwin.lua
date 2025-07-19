@@ -5,10 +5,9 @@ return {
         config = function()
             require("wslcwin").setup()
         end,
-        -- 仅在 WSL 环境中启用
+        -- Only enable in WSL environment
         cond = function()
             return vim.fn.getenv("WSL_DISTRO_NAME") ~= vim.NIL
-        end,
+        end
     }
 }
-
