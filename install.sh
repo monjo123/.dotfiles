@@ -53,6 +53,7 @@ ln -s ~/.dotfiles/cargo ~/.cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update
 . "$HOME/.cargo/env"
+ln -s ~/.dotfiles/config/yazi ~/.config/yazi
 git clone https://github.com/sxyazi/yazi.git
 cd yazi
 cargo build --release --locked
