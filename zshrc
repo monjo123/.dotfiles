@@ -57,3 +57,4 @@ alias ll='ls -al'
 alias cat=batcat
 
 eval "$(zoxide init --cmd cd zsh)"
+
