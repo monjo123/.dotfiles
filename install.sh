@@ -48,9 +48,9 @@ git config --global user.email wenocean123@gmail.com
 
 echo "$ chsh -s $(which zsh); zsh"
 
-# yazi
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
-git clone https://github.com/sxyazi/yazi.git
-cd yazi
-cargo build --release --locked
+# # yazi
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# rustup update
+# git clone https://github.com/sxyazi/yazi.git
+# cd yazi
+# cargo build --release --locked
