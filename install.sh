@@ -48,8 +48,8 @@ git config --global user.email wenocean123@gmail.com
 
 # yazi
 ln -s ~/.dotfiles/cargo ~/.cargo
-rustup update
 . "$HOME/.cargo/env"
+rustup update
 ln -s ~/.dotfiles/config/yazi ~/.config/yazi
 git clone https://github.com/sxyazi/yazi.git
 cd yazi
