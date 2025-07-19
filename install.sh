@@ -46,8 +46,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git config --global user.name ocean
 git config --global user.email wenocean123@gmail.com
 
-echo "$ chsh -s $(which zsh); zsh"
-
 # yazi
 ln -s ~/.dotfiles/cargo ~/.cargo
 rustup update
@@ -63,3 +61,5 @@ curl -sS https://starship.rs/install.sh | sudo sh
 
 # for ripgrep
 sudo apt-get install ripgrep
+
+echo "$ chsh -s $(which zsh); zsh"
