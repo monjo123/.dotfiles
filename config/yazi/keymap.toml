@@ -10,7 +10,7 @@ run = "plugin fr rga"
 desc = "Search file by content (rga)"
 
 # lazygit
-[[manager.prepend_keymap]]
-on   = [ "g", "i" ]
+[[mgr.prepend_keymap]]
+on   = [ "g", "g" ]
 run  = "plugin lazygit"
 desc = "run lazygit"
