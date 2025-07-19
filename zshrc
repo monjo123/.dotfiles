@@ -59,3 +59,4 @@ alias cat=batcat
 
 eval "$(zoxide init --cmd cd zsh)"
 
+eval "$(starship init zsh)"
