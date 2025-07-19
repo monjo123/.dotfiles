@@ -1,9 +1,4 @@
 [[plugin.deps]]
-use = "yazi-rs/plugins:full-border"
-rev = "5d726c0"
-hash = "3996fc74044bc44144b323686f887e1"
-
-[[plugin.deps]]
 use = "Rolv-Apneseth/starship"
 rev = "a63550b"
 hash = "c2021386289a0cbb3e152a052f67c177"
@@ -17,6 +12,16 @@ hash = "63b6c222bf2103b3023389dde5e2ecfe"
 use = "lpnh/fr"
 rev = "3d32e55"
 hash = "f7ab219b58675582ef855a9414dbc659"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "5d726c0"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "7a08a09"
+hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
 
 [flavor]
 deps = []

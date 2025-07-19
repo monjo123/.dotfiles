@@ -61,6 +61,7 @@ sudo mv target/release/yazi target/release/ya /usr/local/bin/
 cd ~/.dotfiles 
 rm -rf yazi
 export EDITOR=nvim
+curl -sS https://starship.rs/install.sh | sh
 
 # for ripgrep
 sudo apt-get install ripgrep
