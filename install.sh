@@ -59,7 +59,7 @@ cargo build --release --locked
 sudo mv target/release/yazi target/release/ya /usr/local/bin/
 cd ~/.dotfiles 
 rm -rf yazi
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sudo sh
 
 # for ripgrep
 sudo apt-get install ripgrep
