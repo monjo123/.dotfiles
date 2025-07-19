@@ -19,12 +19,6 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-
-bindkey -M vicmd '^R' undefined-key
-bindkey -M viins '^R' undefined-key
-
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -36,6 +30,9 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
+  --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
+
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 zinit light zsh-users/zsh-completions
@@ -52,17 +49,11 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 . "$HOME/.local/bin/env"
 
 hash -d download=/mnt/c/Users/wenoc/Downloads
-
-ptouch() {
-  local filepath="$1"
-  local dir
-  dir=$(dirname "$filepath")
-  mkdir -p "$dir" && touch "$filepath"
-}
-
-export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
-  --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
+hash -d nvimPlugins=~/.config/nvim/lua/plugins
 
 alias ls='ls --color=auto'
 alias ll='ls -al'
 
+alias cat=batcat
+
+eval "$(zoxide init --cmd cd zsh)"

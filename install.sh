@@ -16,6 +16,7 @@ zinit self-update
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 sudo apt install bat
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # for wsl vscode
 sudo apt-get install wget ca-certificates
@@ -37,16 +38,6 @@ sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 sudo apt install luarocks
 rm -f nvim-linux-x86_64.tar.gz
-
-# for ripgrep
-sudo apt-get install ripgrep
-
-# for fd-find
-sudo apt install fd-find
-
-# for node.js
-sudo apt-get install nodejs
-sudo apt install npm
 
 # for uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
