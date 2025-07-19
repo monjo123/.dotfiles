@@ -47,6 +47,7 @@ zinit light Aloxaf/fzf-tab
 
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 . "$HOME/.local/bin/env"
+export EDITOR=nvim
 
 hash -d download=/mnt/c/Users/wenoc/Downloads
 hash -d nvimPlugins=~/.config/nvim/lua/plugins
@@ -58,23 +59,3 @@ alias cat=batcat
 
 eval "$(zoxide init --cmd cd zsh)"
 
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk

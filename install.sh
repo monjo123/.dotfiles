@@ -50,7 +50,6 @@ echo "$ chsh -s $(which zsh); zsh"
 
 # yazi
 ln -s ~/.dotfiles/cargo ~/.cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update
 . "$HOME/.cargo/env"
 ln -s ~/.dotfiles/config/yazi ~/.config/yazi
@@ -60,7 +59,6 @@ cargo build --release --locked
 sudo mv target/release/yazi target/release/ya /usr/local/bin/
 cd ~/.dotfiles 
 rm -rf yazi
-export EDITOR=nvim
 curl -sS https://starship.rs/install.sh | sh
 
 # for ripgrep
