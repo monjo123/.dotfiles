@@ -57,6 +57,9 @@ ln -s ~/.dotfiles/config/yazi ~/.config/yazi
 git clone https://github.com/sxyazi/yazi.git
 cd yazi
 cargo build --release --locked
-mv target/release/yazi target/release/ya /usr/local/bin/
+sudo mv target/release/yazi target/release/ya /usr/local/bin/
 cd ~/.dotfiles 
 rm -rf yazi
+
+# for ripgrep
+sudo apt-get install ripgrep
