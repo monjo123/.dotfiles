@@ -60,6 +60,7 @@ cargo build --release --locked
 sudo mv target/release/yazi target/release/ya /usr/local/bin/
 cd ~/.dotfiles 
 rm -rf yazi
+export EDITOR=nvim
 
 # for ripgrep
 sudo apt-get install ripgrep

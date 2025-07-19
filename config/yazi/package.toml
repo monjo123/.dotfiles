@@ -13,5 +13,10 @@ use = "yazi-rs/plugins:git"
 rev = "5d726c0"
 hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
+[[plugin.deps]]
+use = "lpnh/fr"
+rev = "3d32e55"
+hash = "f7ab219b58675582ef855a9414dbc659"
+
 [flavor]
 deps = []
