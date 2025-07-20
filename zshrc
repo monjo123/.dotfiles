@@ -41,6 +41,7 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit snippet OMZ::lib/history.zsh
 zinit light Aloxaf/fzf-tab
+zinit load djui/alias-tips
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -60,4 +61,7 @@ alias cat=batcat
 eval "$(zoxide init --cmd cd zsh)"
 
 eval "$(starship init zsh)"
+
+alias y=yazi
+alias lg=lazygit
 
