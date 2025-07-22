@@ -51,7 +51,6 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export EDITOR=nvim
 
 hash -d download=/mnt/c/Users/wenoc/Downloads
-hash -d nvimPlugins=~/.config/nvim/lua/plugins
 
 alias ls='ls --color=auto'
 alias ll='ls -al'

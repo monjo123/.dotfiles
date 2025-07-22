@@ -9,14 +9,6 @@ return {
             custom_filter = function(bufnr)
                 return vim.api.nvim_buf_get_option(bufnr, 'buftype') ~= 'terminal'
             end,
-            offsets = {
-              {
-                filetype = "neo-tree",
-                text = "Explorer",
-                text_align = "left",
-                separator = true,
-              }
-            },
         }
     },
 

@@ -9,11 +9,6 @@ rev = "5d726c0"
 hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
 [[plugin.deps]]
-use = "lpnh/fr"
-rev = "3d32e55"
-hash = "f7ab219b58675582ef855a9414dbc659"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
 rev = "5d726c0"
 hash = "3996fc74044bc44144b323686f887e1"
@@ -22,6 +17,16 @@ hash = "3996fc74044bc44144b323686f887e1"
 use = "Lil-Dank/lazygit"
 rev = "7a08a09"
 hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "1ab21d4"
+hash = "f10a14e823382d90fab5b3ee54cb38fe"
+
+[[plugin.deps]]
+use = "lpnh/fr"
+rev = "3d32e55"
+hash = "f7ab219b58675582ef855a9414dbc659"
 
 [flavor]
 deps = []

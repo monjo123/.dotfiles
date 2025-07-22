@@ -1,16 +1,27 @@
+# lazygit
+[[mgr.prepend_keymap]]
+on   = [ "g", "g" ]
+run  = "plugin lazygit"
+desc = "run lazygit"
+
+# mount
+[[mgr.prepend_keymap]]
+on  = "M"
+run = "plugin mount"
+
+# fzf
+[[mgr.prepend_keymap]]
+on = ["f", "f"]
+run = "plugin fzf"
+
+# esc everything
+[[mgr.append_keymap]]
+on = "<esc>"
+run = "<C-c>"
+
 # fr
 [[mgr.prepend_keymap]]
 on = ["f", "r"]
 run = "plugin fr rg"
 desc = "Search file by content (rg)"
 
-[[mgr.prepend_keymap]]
-on = ["f", "a"]
-run = "plugin fr rga"
-desc = "Search file by content (rga)"
-
-# lazygit
-[[mgr.prepend_keymap]]
-on   = [ "g", "g" ]
-run  = "plugin lazygit"
-desc = "run lazygit"
