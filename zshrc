@@ -64,3 +64,4 @@ eval "$(starship init zsh)"
 alias y=yazi
 alias lg=lazygit
 
+### End of Zinit's installer chunk

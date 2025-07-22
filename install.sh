@@ -17,7 +17,9 @@ sudo apt install -y zsh
 
 # Zinit (Zsh plugin manager)
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-zsh -c "source ~/.zshrc && zinit self-update"
+zsh
+source ~/.zshrc 
+zinit self-update
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
