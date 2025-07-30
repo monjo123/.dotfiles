@@ -1,25 +1,25 @@
 #!/bin/bash
 
 # init
-sudo apt update
-sudo apt-get update
-sudo apt upgrade
-sudo apt-get install build-essential
-sudo apt-get install curl
+sudo apt upgrade -y
+sudo apt-get update -y
+sudo apt-get install build-essential -y
+sudo apt-get install curl -y
 
 # for zsh
 ln -s ~/.dotfiles/zshrc ~/.zshrc
 ln -s ~/.dotfiles/p10k.zsh ~/.p10k.zsh
-sudo apt install zsh
+sudo apt install zsh -y
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+zsh
 zinit self-update
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
-sudo apt install bat
+sudo apt install bat -y
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # for wsl vscode
-sudo apt-get install wget ca-certificates
+sudo apt-get install wget ca-certificates -y
 
 ln -s ~/.dotfiles/config ~/.config
 
@@ -34,21 +34,19 @@ rm -f lazygit lazygit.tar.gz
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-sudo apt install luarocks
+sudo apt install luarocks -y
 rm -f nvim-linux-x86_64.tar.gz
 
 # for uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -LsSf https://astral.sh/uv/install.sh | sh 
 
 # for github
 git config --global user.name ocean
 git config --global user.email wenocean123@gmail.com
 
 # yazi
-ln -s ~/.dotfiles/cargo ~/.cargo
+curl https://sh.rustup.rs -sSf | sh -s -- -y
 . "$HOME/.cargo/env"
-rustup update
-ln -s ~/.dotfiles/config/yazi ~/.config/yazi
 git clone https://github.com/sxyazi/yazi.git
 cd yazi
 cargo build --release --locked
@@ -58,6 +56,6 @@ rm -rf yazi
 sudo sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 
 # for ripgrep
-sudo apt-get install ripgrep
+sudo apt-get install ripgrep -y
 
 echo "$ chsh -s $(which zsh); zsh"
