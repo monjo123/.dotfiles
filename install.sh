@@ -10,7 +10,6 @@ sudo apt-get install curl -y
 ln -s ~/.dotfiles/zshrc ~/.zshrc
 ln -s ~/.dotfiles/p10k.zsh ~/.p10k.zsh
 sudo apt install zsh -y
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 sudo apt install bat -y
