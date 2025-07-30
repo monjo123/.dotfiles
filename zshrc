@@ -56,4 +56,6 @@ eval "$(starship init zsh)"
 
 alias y=yazi
 alias lg=lazygit
+alias code="code --reuse-window"
+alias vim=nvim
 
