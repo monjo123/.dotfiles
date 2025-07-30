@@ -1,3 +1,5 @@
+ZINIT[OPT_NO_PROMPT]=1
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -74,4 +76,5 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
+### End of Zinit's installer chunk
 ### End of Zinit's installer chunk
