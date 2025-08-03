@@ -51,3 +51,6 @@ eval "$(zoxide init --cmd cd zsh)"
 alias code="code --reuse-window"
 alias vim=nvim
 
+. "$HOME/.local/bin/env"
+
+echo "chsh -s $(which zsh); zsh"
