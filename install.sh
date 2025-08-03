@@ -23,3 +23,5 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # for github
 git config --global user.name ocean
 git config --global user.email wenocean123@gmail.com
+
+echo "chsh -s $(which zsh); zsh"

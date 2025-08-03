@@ -53,4 +53,3 @@ alias vim=nvim
 
 . "$HOME/.local/bin/env"
 
-echo "chsh -s $(which zsh); zsh"
