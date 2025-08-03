@@ -39,10 +39,6 @@ zinit load djui/alias-tips
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-. "$HOME/.local/bin/env"
-export EDITOR=nvim
-
 hash -d download=/mnt/c/Users/wenoc/Downloads
 
 alias ls='ls --color=auto'
@@ -52,17 +48,6 @@ alias cat=batcat
 
 eval "$(zoxide init --cmd cd zsh)"
 
-eval "$(starship init zsh)"
-
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
-}
-
-alias lg=lazygit
 alias code="code --reuse-window"
 alias vim=nvim
 
