@@ -24,5 +24,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git config --global user.name ocean
 git config --global user.email wenocean123@gmail.com
 
+# for zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
 echo "chsh -s $(which zsh); zsh"
         

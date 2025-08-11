@@ -1,3 +1,6 @@
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
@@ -15,12 +18,6 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
@@ -36,8 +33,6 @@ zinit snippet OMZ::lib/history.zsh
 zinit light Aloxaf/fzf-tab
 zinit load djui/alias-tips
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 hash -d download=/mnt/c/Users/wenoc/Downloads
 
@@ -46,8 +41,6 @@ alias ll='ls -al'
 
 alias cat=batcat
 
-eval "$(zoxide init --cmd cd zsh)"
-
 alias code="code --reuse-window"
 alias vim=nvim
 
@@ -55,3 +48,8 @@ alias vim=nvim
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k.zsh.
 [[ ! -f ~/.dotfiles/p10k.zsh ]] || source ~/.dotfiles/p10k.zsh
+
+eval "$(zoxide init --cmd cd zsh)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
