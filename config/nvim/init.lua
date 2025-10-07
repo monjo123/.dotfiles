@@ -51,8 +51,8 @@ vim.g.maplocalleader = " "
 
 -- insert mode move
 vim.keymap.set('i', '<C-h>', '<Left>', { noremap = true })
-vim.keymap.set('i', '<C-j>', '<Down>', { noremap = true })
-vim.keymap.set('i', '<C-k>', '<Up>', { noremap = true })
+vim.keymap.set('i', '<C-j>', '<C-o>j', { noremap = true })
+vim.keymap.set('i', '<C-k>', '<C-o>k', { noremap = true })
 vim.keymap.set('i', '<C-l>', '<Right>', { noremap = true })
 
 -- 切換 terminal buffer 的功能
@@ -154,11 +154,6 @@ local function close_or_quit()
   local current_buf = vim.api.nvim_get_current_buf()
   local buftype = vim.api.nvim_buf_get_option(current_buf, "buftype")
 
-  -- Skip unmodifiable buffers (unless it's a terminal)
-  if buftype ~= "terminal" and not vim.api.nvim_buf_get_option(current_buf, "modifiable") then
-    vim.notify("Buffer is not modifiable! Aborting.", vim.log.levels.WARN)
-    return
-  end
 
   local any_real_buffer = false
 
@@ -166,7 +161,7 @@ local function close_or_quit()
     if vim.api.nvim_buf_is_loaded(buf) and buf ~= current_buf then
       local bt = vim.api.nvim_buf_get_option(buf, "buftype")
       local name = vim.api.nvim_buf_get_name(buf)
-      local is_real_buffer = name ~= "" or bt == ""
+      local is_real_buffer = name ~= "" and bt == ""
       if is_real_buffer then
         any_real_buffer = true
         break
@@ -184,7 +179,9 @@ local function close_or_quit()
         if vim.fn.isdirectory(dir) == 0 then
           vim.fn.mkdir(dir, "p")
         end
-        vim.cmd("silent write")
+        if not vim.bo.readonly then
+          vim.cmd("silent write")
+        end
       end
     end
     -- Save current buffer before closing (and create dir if needed)

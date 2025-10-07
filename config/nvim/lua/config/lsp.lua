@@ -3,31 +3,38 @@
 -- ============================================================================
 
 -- ============================================================================
--- GLOBAL SETTINGS
+-- LSP SERVER CONFIGURATIONS
 -- ============================================================================
 
--- Set log level (options: 'trace', 'debug', 'info', 'warn', 'error')
--- Use 'trace' or 'debug' only when debugging to avoid performance issues
-vim.lsp.log.set_level('warn')
+-- Global configuration for ALL servers
+vim.lsp.config('*', {
+  root_markers = { '.git' },
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      },
+    },
+  },
+})
+
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('clangd')
+
+-- ============================================================================
+-- GLOBAL SETTINGS
+-- ============================================================================
 
 -- Configure diagnostics display
 vim.diagnostic.config({
   virtual_text = true,
   signs = false,
   underline = true,
-  update_in_insert = true,
-  severity_sort = true,
-  float = {
-    border = 'none',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
 })
 
 -- Show virtual text on CursorHold
 vim.api.nvim_create_autocmd('CursorHoldI', {
-  buffer = bufnr,  -- remove this line if you want it global
+  buffer = bufnr, -- remove this line if you want it global
   callback = function()
     vim.diagnostic.config({ update_in_insert = true })
   end
@@ -93,46 +100,45 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_custom_keymaps', { clear = true }),
   callback = function(args)
-    local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    -- Helper function for setting keymaps
-    local function map(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = 'LSP: ' .. desc })
-    end
+    -- local bufnr = args.buf
+    -- local client = vim.lsp.get_client_by_id(args.data.client_id)
+    --
+    -- -- Helper function for setting keymaps
+    -- local function map(mode, lhs, rhs, desc)
+    --   vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = 'LSP: ' .. desc })
+    -- end
 
     -- Navigation
-    map('n', 'gd', vim.lsp.buf.definition, 'Go to definition')
-    map('n', 'gD', vim.lsp.buf.declaration, 'Go to declaration')
-    map('n', 'gi', vim.lsp.buf.implementation, 'Go to implementation')
-    map('n', 'gt', vim.lsp.buf.type_definition, 'Go to type definition')
-    map('n', 'gr', vim.lsp.buf.references, 'Show references')
+    -- map('n', 'gd', vim.lsp.buf.definition, 'Go to definition')
+    -- map('n', 'gD', vim.lsp.buf.declaration, 'Go to declaration')
+    -- map('n', 'gi', vim.lsp.buf.implementation, 'Go to implementation')
+    -- map('n', 'gt', vim.lsp.buf.type_definition, 'Go to type definition')
+    -- map('n', 'gr', vim.lsp.buf.references, 'Show references')
 
     -- Documentation
-    map('n', 'K', vim.lsp.buf.hover, 'Hover documentation')
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: Hover documentation' })
     -- map('n', '<C-k>', vim.lsp.buf.signature_help, 'Signature help')
     -- map('i', '<C-k>', vim.lsp.buf.signature_help, 'Signature help')
 
     -- Code actions
-    map('n', '<leader>ca', vim.lsp.buf.code_action, 'Code action')
-    map('v', '<leader>ca', vim.lsp.buf.code_action, 'Code action')
-    map('n', '<leader>rn', vim.lsp.buf.rename, 'Rename symbol')
+    vim.keymap.set({ 'v', 'n' }, '<leader>a', vim.lsp.buf.code_action, { desc = 'LSP: Code action' })
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP: Rename symbol' })
 
     -- Formatting
-    if client:supports_method('textDocument/formatting') then
-      map('n', '<leader>f', function()
-        vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-      end, 'Format buffer')
-    end
+    -- if client:supports_method('textDocument/formatting') then
+    --   map('n', '<leader>f', function()
+    --     vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
+    --   end, 'Format buffer')
+    -- end
 
     -- Diagnostics
-    map('n', '[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
-    map('n', ']d', vim.diagnostic.goto_next, 'Next diagnostic')
-    map('n', '<leader>e', vim.diagnostic.open_float, 'Show diagnostic')
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'LSP: Previous diagnostic' })
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'LSP: Next diagnostic' })
+    -- map('n', '<leader>e', vim.diagnostic.open_float, 'Show diagnostic')
     -- map('n', '<leader>q', vim.diagnostic.setloclist, 'Diagnostics to loclist')
 
     -- Workspace
-    map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, 'Add workspace folder')
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
     map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Remove workspace folder')
     map('n', '<leader>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -163,16 +169,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- Code lens
-    if client:supports_method('textDocument/codeLens') then
-      map('n', '<leader>cl', vim.lsp.codelens.run, 'Run code lens')
-      map('n', '<leader>cL', vim.lsp.codelens.refresh, 'Refresh code lens')
-
-      -- Auto-refresh code lens
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-        buffer = bufnr,
-        callback = vim.lsp.codelens.refresh,
-      })
-    end
+    -- if client:supports_method('textDocument/codeLens') then
+    --   map('n', '<leader>cl', vim.lsp.codelens.run, 'Run code lens')
+    --   map('n', '<leader>cL', vim.lsp.codelens.refresh, 'Refresh code lens')
+    --
+    --   -- Auto-refresh code lens
+    --   vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+    --     buffer = bufnr,
+    --     callback = vim.lsp.codelens.refresh,
+    --   })
+    -- end
 
     -- Document highlight
     if client:supports_method('textDocument/documentHighlight') then
@@ -207,28 +213,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- ============================================================================
 
 -- Auto-format on save
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp_format_on_save', { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    -- Only enable for specific servers (uncomment and modify as needed)
-    -- if client.name ~= 'lua_ls' then return end
-
-    if client:supports_method('textDocument/formatting') then
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        buffer = args.buf,
-        callback = function()
-          vim.lsp.buf.format({
-            bufnr = args.buf,
-            id = client.id,
-            timeout_ms = 2000,
-          })
-        end,
-      })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   group = vim.api.nvim_create_augroup('lsp_format_on_save', { clear = true }),
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--
+--     -- Only enable for specific servers (uncomment and modify as needed)
+--     -- if client.name ~= 'lua_ls' then return end
+--
+--     if client:supports_method('textDocument/formatting') then
+--       vim.api.nvim_create_autocmd('BufWritePre', {
+--         buffer = args.buf,
+--         callback = function()
+--           vim.lsp.buf.format({
+--             bufnr = args.buf,
+--             id = client.id,
+--             timeout_ms = 2000,
+--           })
+--         end,
+--       })
+--     end
+--   end,
+-- })
 
 -- Inlay hints (inline parameter names, type hints, etc.)
 -- vim.api.nvim_create_autocmd('LspAttach', {
@@ -280,65 +286,45 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --     end
 --   end,
 -- })
-
--- ============================================================================
--- LSP SERVER CONFIGURATIONS
--- ============================================================================
-
--- Global configuration for ALL servers
-vim.lsp.config('*', {
-  root_markers = { '.git' },
-  capabilities = {
-    textDocument = {
-      semanticTokens = {
-        multilineTokenSupport = true,
-      },
-    },
-  },
-})
-
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('clangd')
-
--- ============================================================================
--- UTILITY FUNCTIONS
--- ============================================================================
-
--- Restart LSP server
-vim.api.nvim_create_user_command('LspRestart', function()
-  vim.lsp.stop_client(vim.lsp.get_clients())
-  vim.cmd('edit')
-end, { desc = 'Restart LSP servers' })
-
--- Show LSP info
-vim.api.nvim_create_user_command('LspInfo', function()
-  local clients = vim.lsp.get_clients({ bufnr = 0 })
-  if #clients == 0 then
-    print('No LSP clients attached to current buffer')
-    return
-  end
-
-  for _, client in ipairs(clients) do
-    print(string.format('Client: %s (id: %d)', client.name, client.id))
-    print('Root dir: ' .. (client.root_dir or 'N/A'))
-    print('Capabilities: ' .. vim.inspect(client.server_capabilities))
-  end
-end, { desc = 'Show LSP info for current buffer' })
-
--- Toggle inlay hints
-vim.api.nvim_create_user_command('LspInlayHintToggle', function()
-  local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
-  vim.lsp.inlay_hint.enable(not enabled, { bufnr = 0 })
-  print('Inlay hints ' .. (enabled and 'disabled' or 'enabled'))
-end, { desc = 'Toggle inlay hints' })
-
--- Toggle semantic tokens
-vim.api.nvim_create_user_command('LspSemanticTokensToggle', function()
-  local enabled = vim.lsp.semantic_tokens.is_enabled({ bufnr = 0 })
-  vim.lsp.semantic_tokens.enable(not enabled, { bufnr = 0 })
-  print('Semantic tokens ' .. (enabled and 'disabled' or 'enabled'))
-end, { desc = 'Toggle semantic tokens' })
-
+-- -- ============================================================================
+-- -- UTILITY FUNCTIONS
+-- -- ============================================================================
+--
+-- -- Restart LSP server
+-- vim.api.nvim_create_user_command('LspRestart', function()
+--   vim.lsp.stop_client(vim.lsp.get_clients())
+--   vim.cmd('edit')
+-- end, { desc = 'Restart LSP servers' })
+--
+-- -- Show LSP info
+-- vim.api.nvim_create_user_command('LspInfo', function()
+--   local clients = vim.lsp.get_clients({ bufnr = 0 })
+--   if #clients == 0 then
+--     print('No LSP clients attached to current buffer')
+--     return
+--   end
+--
+--   for _, client in ipairs(clients) do
+--     print(string.format('Client: %s (id: %d)', client.name, client.id))
+--     print('Root dir: ' .. (client.root_dir or 'N/A'))
+--     print('Capabilities: ' .. vim.inspect(client.server_capabilities))
+--   end
+-- end, { desc = 'Show LSP info for current buffer' })
+--
+-- -- Toggle inlay hints
+-- vim.api.nvim_create_user_command('LspInlayHintToggle', function()
+--   local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+--   vim.lsp.inlay_hint.enable(not enabled, { bufnr = 0 })
+--   print('Inlay hints ' .. (enabled and 'disabled' or 'enabled'))
+-- end, { desc = 'Toggle inlay hints' })
+--
+-- -- Toggle semantic tokens
+-- vim.api.nvim_create_user_command('LspSemanticTokensToggle', function()
+--   local enabled = vim.lsp.semantic_tokens.is_enabled({ bufnr = 0 })
+--   vim.lsp.semantic_tokens.enable(not enabled, { bufnr = 0 })
+--   print('Semantic tokens ' .. (enabled and 'disabled' or 'enabled'))
+-- end, { desc = 'Toggle semantic tokens' })
+--
 -- ============================================================================
 -- NOTES
 -- ============================================================================
