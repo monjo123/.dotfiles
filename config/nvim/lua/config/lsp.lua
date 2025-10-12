@@ -132,41 +132,41 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     -- Diagnostics
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'LSP: Previous diagnostic' })
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'LSP: Next diagnostic' })
+    -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'LSP: Previous diagnostic' })
+    -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'LSP: Next diagnostic' })
     -- map('n', '<leader>e', vim.diagnostic.open_float, 'Show diagnostic')
     -- map('n', '<leader>q', vim.diagnostic.setloclist, 'Diagnostics to loclist')
 
     -- Workspace
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
-    map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Remove workspace folder')
-    map('n', '<leader>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, 'List workspace folders')
+    -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'LSP: Add workspace folder' })
+    -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'LSP: Remove workspace folder' })
+    -- vim.keymap.set('n', '<leader>wl', function()
+    --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, { desc = 'LSP: List workspace folders' })
 
     -- Symbols
-    map('n', '<leader>ds', vim.lsp.buf.document_symbol, 'Document symbols')
-    map('n', '<leader>ws', vim.lsp.buf.workspace_symbol, 'Workspace symbols')
-
+    -- vim.keymap.set('n', '<leader>ds', vim.lsp.buf.document_symbol, { desc = 'LSP: Document symbols' })
+    -- vim.keymap.set('n', '<leader>ws', vim.lsp.buf.workspace_symbol, { desc = 'LSP: Workspace symbols' })
+    --
     -- Call hierarchy
-    if client:supports_method('callHierarchy/incomingCalls') then
-      map('n', '<leader>ci', vim.lsp.buf.incoming_calls, 'Incoming calls')
-    end
-    if client:supports_method('callHierarchy/outgoingCalls') then
-      map('n', '<leader>co', vim.lsp.buf.outgoing_calls, 'Outgoing calls')
-    end
+    -- if client:supports_method('callHierarchy/incomingCalls') then
+    --   vim.keymap.set('n', '<leader>ci', vim.lsp.buf.incoming_calls, { desc = 'LSP: Incoming calls' })
+    -- end
+    -- if client:supports_method('callHierarchy/outgoingCalls') then
+    --   vim.keymap.set('n', '<leader>co', vim.lsp.buf.outgoing_calls, { desc = 'LSP: Outgoing calls' })
+    -- end
 
     -- Type hierarchy
-    if client:supports_method('typeHierarchy/subtypes') then
-      map('n', '<leader>ts', function()
-        vim.lsp.buf.typehierarchy('subtypes')
-      end, 'Type subtypes')
-    end
-    if client:supports_method('typeHierarchy/supertypes') then
-      map('n', '<leader>tS', function()
-        vim.lsp.buf.typehierarchy('supertypes')
-      end, 'Type supertypes')
-    end
+    -- if client:supports_method('typeHierarchy/subtypes') then
+    --   vim.keymap.set('n', '<leader>ts', function()
+    --     vim.lsp.buf.typehierarchy('subtypes')
+    --   end, { desc = 'LSP: Type subtypes' })
+    -- end
+    -- if client:supports_method('typeHierarchy/supertypes') then
+    --   vim.keymap.set('n', '<leader>tS', function()
+    --     vim.lsp.buf.typehierarchy('supertypes')
+    --   end, { desc = 'LSP: Type supertypes' })
+    -- end
 
     -- Code lens
     -- if client:supports_method('textDocument/codeLens') then
@@ -181,9 +181,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     -- Document highlight
-    if client:supports_method('textDocument/documentHighlight') then
-      map('n', '<leader>h', vim.lsp.buf.document_highlight, 'Highlight references')
-      map('n', '<leader>H', vim.lsp.buf.clear_references, 'Clear highlights')
+    -- if client:supports_method('textDocument/documentHighlight') then
+    --   vim.keymap.set('n', '<leader>h', vim.lsp.buf.document_highlight, { desc = 'LSP: Highlight references' })
+    --   vim.keymap.set('n', '<leader>H', vim.lsp.buf.clear_references, { desc = 'LSP: Clear highlights' })
 
       -- Optional: Auto-highlight on cursor hold
       -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -194,17 +194,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
       --   buffer = bufnr,
       --   callback = vim.lsp.buf.clear_references,
       -- })
-    end
+    -- end
 
     -- Selection range (incremental selection)
-    if client:supports_method('textDocument/selectionRange') then
-      map('v', '<leader>v', function()
-        vim.lsp.buf.selection_range(1) -- Expand
-      end, 'Expand selection')
-      map('v', '<leader>V', function()
-        vim.lsp.buf.selection_range(-1) -- Shrink
-      end, 'Shrink selection')
-    end
+    -- if client:supports_method('textDocument/selectionRange') then
+    --   vim.keymap.set('v', '<leader>v', function()
+    --     vim.lsp.buf.selection_range(1) -- Expand
+    --   end, { desc = 'LSP: Expand selection' })
+    --   vim.keymap.set('v', '<leader>V', function()
+    --     vim.lsp.buf.selection_range(-1) -- Shrink
+    --   end, { desc = 'LSP: Shrink selection' })
+    -- end
   end,
 })
 

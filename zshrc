@@ -38,7 +38,15 @@ zinit load djui/alias-tips
 alias ls='ls --color=auto'
 alias ll='ls -al'
 alias lg='lazygit'
-alias y='yazi'
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+export EDITOR="nvim"
 
 eval "$(zoxide init --cmd cd zsh)"
 
