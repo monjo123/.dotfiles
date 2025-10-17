@@ -78,6 +78,9 @@ return {
     textDocument = {
       completion = {
         editsNearCursor = true,
+        completionItem = {
+          snippetSupport = false, -- Add this to disable snippet-like completions if unwanted
+        },
       },
     },
     offsetEncoding = { 'utf-8', 'utf-16' },
