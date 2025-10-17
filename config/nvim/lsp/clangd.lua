@@ -63,7 +63,7 @@ end
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'clangd' },
+  cmd = { 'clangd', '--function-arg-placeholders=0' },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   root_markers = {
     '.clangd',
