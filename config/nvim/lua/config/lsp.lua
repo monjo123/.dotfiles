@@ -20,6 +20,8 @@ vim.lsp.config('*', {
 
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('clangd')
+vim.lsp.enable('pyright')
+vim.lsp.enable('bashls')
 
 -- ============================================================================
 -- GLOBAL SETTINGS
@@ -27,10 +29,18 @@ vim.lsp.enable('clangd')
 
 -- Configure diagnostics display
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = {
+        -- 只顯示 severity <= 2 的診斷 (Error=1, Warning=2)
+    severity = { min = vim.diagnostic.severity.WARN },
+  },
   signs = false,
-  underline = true,
+  underline = {
+        -- 只顯示 severity <= 2 的診斷 (Error=1, Warning=2)
+    severity = { min = vim.diagnostic.severity.WARN },
+  },
 })
+
+vim.o.updatetime = 1000
 
 -- Show virtual text on CursorHold
 vim.api.nvim_create_autocmd('CursorHoldI', {

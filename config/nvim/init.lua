@@ -67,7 +67,7 @@ local function toggle_terminal()
   end
 
   local current_buf = vim.api.nvim_get_current_buf()
-  local current_buftype = vim.api.nvim_buf_get_option(current_buf, "buftype")
+  local current_buftype = vim.api.nvim_get_option_value("buftype", { buf = current_buf })
 
   if not term_buf then
     -- 沒有 terminal buffer，就新開一個
@@ -84,7 +84,7 @@ local function toggle_terminal()
         vim.api.nvim_set_current_win(term_win)
       else
         -- 如果 terminal buffer 沒有 window，則新開一個
-        vim.cmd("botright split | terminal")
+        vim.cmd("botright split")
         vim.api.nvim_set_current_buf(term_buf)
       end
       vim.cmd("startinsert")
@@ -215,6 +215,34 @@ vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+      ['+'] = 'clip.exe',  
+    },
+    paste = {
+      ['+'] = '/usr/bin/win32yank',
+    },
+    cache_enabled = 0,
+  }
+end
+
+vim.keymap.set({ "n", "v" }, "Y", '"+y', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "YY", '"+yy', { noremap = true, silent = true })
+vim.keymap.set({ "v", "n" }, "P", '"+p', { noremap = true, silent = true })
+
+-- Open help in the current window as a normal listed buffer
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+        vim.bo.buflisted = true   -- make it show in bufferline and :bnext
+        vim.bo.buftype = ""       -- treat as a normal buffer
+        vim.cmd("wincmd o")       -- close any other windows in this tab
+    end
+})
+
 require("config.lsp")
 -- lazyvim
 require("config.lazy")
+
