@@ -129,26 +129,26 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Automatically save all modifiable normal buffers when changed
-vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
-  pattern = "*", -- apply to all buffers
-  callback = function()
-    local bufnr = 0
-    local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
-    local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
-
-    if modifiable and buftype == "" then
-      -- Ensure directory exists before saving
-      local file = vim.api.nvim_buf_get_name(bufnr)
-      if file ~= "" then
-        local dir = vim.fn.fnamemodify(file, ":p:h")
-        if vim.fn.isdirectory(dir) == 0 then
-          vim.fn.mkdir(dir, "p")
-        end
-      end
-      vim.cmd("silent write")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+--   pattern = "*", -- apply to all buffers
+--   callback = function()
+--     local bufnr = 0
+--     local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
+--     local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
+--
+--     if modifiable and buftype == "" then
+--       -- Ensure directory exists before saving
+--       local file = vim.api.nvim_buf_get_name(bufnr)
+--       if file ~= "" then
+--         local dir = vim.fn.fnamemodify(file, ":p:h")
+--         if vim.fn.isdirectory(dir) == 0 then
+--           vim.fn.mkdir(dir, "p")
+--         end
+--       end
+--       vim.cmd("silent write")
+--     end
+--   end,
+-- })
 
 local function close_or_quit()
   local current_buf = vim.api.nvim_get_current_buf()

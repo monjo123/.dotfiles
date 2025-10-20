@@ -10,7 +10,7 @@ return {
               insert_line = "<C-g>S",
               normal = "s",
               normal_cur = "ss",
-             normal_line = "S",
+              normal_line = "S",
               normal_cur_line = "SS",
               visual = "S",
               visual_line = "gS",
