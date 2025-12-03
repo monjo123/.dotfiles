@@ -2,10 +2,11 @@ return {
   "folke/flash.nvim",
   event = "VeryLazy",
   ---@type Flash.Config
-  opt = {},
-  -- stylua: ignore
+  opts = {},
   keys = {
-    { "<leader>s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "<leader>S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "t", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    { "T", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
   },
 }

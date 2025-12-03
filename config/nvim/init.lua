@@ -228,6 +228,8 @@ if vim.fn.has('wsl') == 1 then
   }
 end
 
+vim.opt.clipboard = "unnamedplus"
+
 vim.keymap.set({ "n", "v" }, "Y", '"+y', { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "YY", '"+yy', { noremap = true, silent = true })
 vim.keymap.set({ "v", "n" }, "P", '"+p', { noremap = true, silent = true })
