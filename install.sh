@@ -1,6 +1,6 @@
 sudo pacman -Syu
 
-sudo pacman -S python3 zsh vim git openssh gcc neovim fzf bat zoxide yi
+sudo pacman -S python3 zsh vim git openssh gcc neovim fzf bat zoxide yazi lazygit
 
 # for zsh
 mkdir -p ~/.config
