@@ -11,4 +11,5 @@ return {
       require("catppuccin").setup(opts)
       vim.cmd.colorscheme "catppuccin"
     end,
-  },}
+  },
+}
