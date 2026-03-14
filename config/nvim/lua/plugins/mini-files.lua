@@ -13,10 +13,8 @@ return {
       synchronize = '<CR>'
     },
   },
-  keys = {
-    {"<leader>e", mode = { "n" }, "<cmd>lua MiniFiles.open()<CR>" },
-  },
   config = function(_, opts)
     require("mini.files").setup(opts)
+    vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<CR>')
   end,
 }
