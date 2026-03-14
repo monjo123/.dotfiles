@@ -4,5 +4,33 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   -- or if using mini.icons/mini.nvim
   -- dependencies = { "nvim-mini/mini.icons" },
-  opts = {}
+  ---@module "fzf-lua"
+  ---@diagnostic disable: missing-fields
+  opts = {
+    keymap = {
+      fzf = {
+        ["tab"] = "down",
+        ["shift-tab"] = "up",
+      }
+    }
+  },
+  ---@diagnostic enable: missing-fields
+  keys = {
+    { "<leader>ff", "<cmd>FzfLua files<CR>" },
+    { "<leader>fg", "<cmd>FzfLua grep<CR>" },
+    { "<leader>fh", "<cmd>FzfLua history<CR>" },
+    { "<leader>ft", "<cmd>FzfLua treesitter<CR>" },
+    { "<leader>fd", "<cmd>FzfLua zoxide<CR>" },
+    { "<leader>gw", "<cmd>FzfLua diagnostic_workspace<CR>" },
+    { "<leader>gr", "<cmd>FzfLua lsp_references<CR>" },
+    { "<leader>gd", "<cmd>FzfLua lsp_definitions<CR>" },
+    { "<leader>gD", "<cmd>FzfLua lsp_declarations<CR>" },
+    { "<leader>gw", "<cmd>FzfLua diagnostic_workspace<CR>" },
+    { "<leader>gt", "<cmd>FzfLua lsp_typedefs<CR>" },
+    { "<leader>gi", "<cmd>FzfLua lsp_implementations<CR>" },
+    { "<leader>a", "<cmd>FzfLua lsp_code_actions<CR>" },
+
+
+  },
+
 }

@@ -6,9 +6,9 @@ vim.opt.cursorline = true
 vim.api.nvim_set_hl(0, 'CursorLine', {})
 
 -- indentation
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
@@ -21,7 +21,6 @@ vim.opt.incsearch = true
 
 -- visual setting
 vim.opt.termguicolors = true
-vim.opt.completeopt = "menu,menuone,noinsert,noselect,fuzzy"
 vim.opt.showmode = false
 
 -- file handing
@@ -47,7 +46,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- key mapping
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 -- insert mode move
 vim.keymap.set('i', '<C-h>', '<Left>', { noremap = true })
@@ -55,67 +54,12 @@ vim.keymap.set('i', '<C-j>', '<C-o>j', { noremap = true })
 vim.keymap.set('i', '<C-k>', '<C-o>k', { noremap = true })
 vim.keymap.set('i', '<C-l>', '<Right>', { noremap = true })
 
--- 切換 terminal buffer 的功能
-local function toggle_terminal()
-  local term_buf
-  -- 找到第一個存在的 terminal buffer
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
-      term_buf = buf
-      break
-    end
-  end
-
-  local current_buf = vim.api.nvim_get_current_buf()
-  local current_buftype = vim.api.nvim_get_option_value("buftype", { buf = current_buf })
-
-  if not term_buf then
-    -- 沒有 terminal buffer，就新開一個
-    vim.cmd("botright split | terminal")
-    vim.cmd("startinsert")
-  else
-    if current_buftype == "terminal" and current_buf == term_buf then
-      -- 當前已經在 terminal buffer，關閉 window 而不刪除 buffer
-      vim.cmd("close")
-    else
-      -- terminal buffer 已存在，切換到它所在的 window
-      local term_win = vim.fn.bufwinid(term_buf)
-      if term_win ~= -1 then
-        vim.api.nvim_set_current_win(term_win)
-      else
-        -- 如果 terminal buffer 沒有 window，則新開一個
-        vim.cmd("botright split")
-        vim.api.nvim_set_current_buf(term_buf)
-      end
-      vim.cmd("startinsert")
-    end
-  end
-end
-
-vim.keymap.set("n", "<leader>t", toggle_terminal, { noremap = true, silent = true, desc = "Toggle terminal buffer" })
-
--- <leader>i: 若目前在 terminal buffer，跳回原本編輯的 buffer
-vim.keymap.set("n", "<leader>i", function()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local buftype = vim.api.nvim_buf_get_option(current_buf, "buftype")
-  if buftype == "terminal" then
-    vim.cmd("wincmd p")
-  end
-end, { noremap = true, silent = true, desc = "Return to last editing buffer" })
-
 -- terminal normal mode with <Esc>
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal: enter normal mode" })
 
 -- better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
-
--- highlight yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
 
 -- return to last edit position when opening files
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -127,70 +71,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
-
--- Automatically save all modifiable normal buffers when changed
--- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
---   pattern = "*", -- apply to all buffers
---   callback = function()
---     local bufnr = 0
---     local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
---     local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
---
---     if modifiable and buftype == "" then
---       -- Ensure directory exists before saving
---       local file = vim.api.nvim_buf_get_name(bufnr)
---       if file ~= "" then
---         local dir = vim.fn.fnamemodify(file, ":p:h")
---         if vim.fn.isdirectory(dir) == 0 then
---           vim.fn.mkdir(dir, "p")
---         end
---       end
---       vim.cmd("silent write")
---     end
---   end,
--- })
-
-local function close_or_quit()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local buftype = vim.api.nvim_buf_get_option(current_buf, "buftype")
-
-
-  local any_real_buffer = false
-
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and buf ~= current_buf then
-      local bt = vim.api.nvim_buf_get_option(buf, "buftype")
-      local name = vim.api.nvim_buf_get_name(buf)
-      local is_real_buffer = name ~= "" and bt == ""
-      if is_real_buffer then
-        any_real_buffer = true
-        break
-      end
-    end
-  end
-
-  if not any_real_buffer then
-    vim.cmd("qa!")
-  else
-    if buftype ~= "terminal" then
-      local file = vim.api.nvim_buf_get_name(current_buf)
-      if file ~= "" then
-        local dir = vim.fn.fnamemodify(file, ":p:h")
-        if vim.fn.isdirectory(dir) == 0 then
-          vim.fn.mkdir(dir, "p")
-        end
-        if not vim.bo.readonly then
-          vim.cmd("silent write")
-        end
-      end
-    end
-    -- Save current buffer before closing (and create dir if needed)
-    vim.cmd("bdelete!")
-  end
-end
-
--- Optional: Map it to a key, e.g. <leader>q
-vim.keymap.set("n", "<leader>q", close_or_quit, { desc = "Smart close or quit" })
 
 -- open config
 vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim<CR>", { desc = "Configuration" })
@@ -215,6 +95,16 @@ vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 
+-- Open help in the current window as a normal listed buffer
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  callback = function()
+    vim.bo.buflisted = true   -- make it show in bufferline and :bnext
+    vim.bo.buftype = ""       -- treat as a normal buffer
+    vim.cmd("wincmd o")       -- close any other windows in this tab
+  end
+})
+
 if vim.fn.has('wsl') == 1 then
   vim.g.clipboard = {
     name = 'WslClipboard',
@@ -226,23 +116,57 @@ if vim.fn.has('wsl') == 1 then
     },
     cache_enabled = 0,
   }
+elseif vim.env.SSH_CONNECTION then
+  vim.g.clipboard = {
+    name = "osc52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
 end
 
 vim.keymap.set({ "n", "v" }, "Y", '"+y', { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "YY", '"+yy', { noremap = true, silent = true })
 vim.keymap.set({ "v", "n" }, "P", '"+p', { noremap = true, silent = true })
 
--- Open help in the current window as a normal listed buffer
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "help",
-    callback = function()
-        vim.bo.buflisted = true   -- make it show in bufferline and :bnext
-        vim.bo.buftype = ""       -- treat as a normal buffer
-        vim.cmd("wincmd o")       -- close any other windows in this tab
-    end
+-- highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
-require("config.lsp")
--- lazyvim
+vim.keymap.set('n', '<leader>q', function()
+    local listed_buffers = vim.fn.getbufinfo({ buflisted = 1 })
+
+    if #listed_buffers <= 1 then
+        vim.cmd('quit')
+    else
+        vim.cmd('bdelete')
+    end
+end, { desc = 'Close buffer or quit' })
+
 require("config.lazy")
+
+vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
+vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>')
+vim.keymap.set({'n', 'x'}, '<leader>F', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+
+vim.diagnostic.config({
+  signs = false,
+  virtual_text = true,
+})
+
+vim.lsp.enable({
+  "lua_ls",
+  "clangd",
+  "pyright",
+})
+
+
 

@@ -32,6 +32,7 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 zinit light zdharma-continuum/fast-syntax-highlighting
+zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::lib/history.zsh
 zinit load djui/alias-tips
 
@@ -68,9 +69,30 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+run() {
+  for file in "$@"; do
+    if [[ ! -f "$file" ]]; then
+      echo "File not found: $file"
+      continue
+    fi
 
-. "$HOME/.local/bin/env"
+    ext="${file##*.}"
+    name="${file:r}"
+
+    case "$ext" in
+      c)
+        gcc "$file" -o "/tmp/a.out" && "/tmp/a.out"
+        ;;
+      cpp|cc|cxx)
+        g++ "$file" -o "/tmp/a.out" && "/tmp/a.out"
+        ;;
+      py)
+        python3 "$file"
+        ;;
+      *)
+        echo "Unsupported file type: $file"
+        ;;
+    esac
+  done
+}
 
