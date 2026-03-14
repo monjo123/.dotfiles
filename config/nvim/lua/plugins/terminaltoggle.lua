@@ -3,10 +3,13 @@ return {
   version = "*",
   opts = {
     start_in_insert = true,
+    float_opts = {
+      border = 'rounded'
+    }
   },
   keys = {
     {"<leader>t", mode = { "n" }, "<cmd>ToggleTerm direction=horizontal<CR>" },
-    {"<leader>T", mode = { "n" }, "<cmd>ToggleTerm direction=float<CR>" },
+    {"<leader>T", mode = { "n" }, "<cmd>ToggleTerm direction=tab<CR>" },
   },
   config = function(_, opts)
     require("toggleterm").setup(opts)
