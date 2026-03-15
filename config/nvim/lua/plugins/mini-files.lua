@@ -15,6 +15,8 @@ return {
   },
   config = function(_, opts)
     require("mini.files").setup(opts)
-    vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<CR>')
+    vim.keymap.set('n', '<leader>e', function()
+      MiniFiles.open(vim.api.nvim_buf_get_name(0))
+    end)
   end,
 }

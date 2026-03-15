@@ -49,7 +49,9 @@ return {
         'select_prev', 
         'snippet_backward', 
         'fallback'         
-      }, 
+      },
+
+      ['<CR>'] = { 'accept', 'fallback' },
 
       ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
       ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
@@ -67,9 +69,12 @@ return {
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { 
-      documentation = { 
-        auto_show = true 
+    completion = {
+      ghost_text = {
+        enabled = true, 
+      },
+      documentation = {
+        auto_show = true
       },
       trigger = {
         show_on_trigger_character = true
@@ -79,8 +84,30 @@ return {
           preselect = false,
           auto_insert = true
         }
-      }
-    },  
+      },
+      accept = {
+        auto_brackets = {
+          enabled = true,
+        },
+      },
+      menu = {
+          draw = {
+              -- We don't need label_description now because label and label_description are already
+              -- combined together in label by colorful-menu.nvim.
+              columns = { { "kind_icon" }, { "label", gap = 1 } },
+              components = {
+                  label = {
+                      text = function(ctx)
+                          return require("colorful-menu").blink_components_text(ctx)
+                      end,
+                      highlight = function(ctx)
+                          return require("colorful-menu").blink_components_highlight(ctx)
+                      end,
+                  },
+              },
+          },
+      },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
