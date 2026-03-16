@@ -16,8 +16,9 @@ vim.opt.autoindent = true
 -- search setting
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- visual setting
 vim.opt.termguicolors = true
