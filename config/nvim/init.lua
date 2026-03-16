@@ -144,6 +144,9 @@ end, { desc = 'Close buffer or quit' })
 
 require("config.lazy")
 
+-- terminal normal mode with <Esc>
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal: enter normal mode" })
+
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>')
 vim.keymap.set({'n', 'x'}, '<leader>F', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
