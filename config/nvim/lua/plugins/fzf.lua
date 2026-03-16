@@ -12,7 +12,7 @@ return {
         ["tab"] = "down",
         ["shift-tab"] = "up",
       }
-    }
+    },
   },
   ---@diagnostic enable: missing-fields
   keys = {
@@ -31,5 +31,9 @@ return {
 
 
   },
+  config = function(_, opts)
+    require("fzf-lua").setup(opts)
+    require("fzf-lua").register_ui_select()
+  end,
 
 }
