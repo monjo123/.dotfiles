@@ -48,15 +48,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- insert mode move
-vim.keymap.set('i', '<C-h>', '<Left>', { noremap = true })
-vim.keymap.set('i', '<C-j>', '<C-o>j', { noremap = true })
-vim.keymap.set('i', '<C-k>', '<C-o>k', { noremap = true })
-vim.keymap.set('i', '<C-l>', '<Right>', { noremap = true })
-
--- terminal normal mode with <Esc>
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal: enter normal mode" })
-
 -- better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
