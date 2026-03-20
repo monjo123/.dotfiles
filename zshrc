@@ -1,98 +1,108 @@
+# ==============================================================================
+# 1. INSTANT PROMPT (Must stay at the absolute top)
+# ==============================================================================
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ==============================================================================
+# 2. ZINIT BOOTSTRAP
+# ==============================================================================
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+if [ ! -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 source "${ZINIT_HOME}/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
-  --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
-
-# --- Completion system ---
-autoload -Uz compinit
-compinit
-
-zinit light Aloxaf/fzf-tab
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
+# Load essential annexes immediately
 zinit light-mode for \
     zdharma-continuum/zinit-annex-as-monitor \
     zdharma-continuum/zinit-annex-bin-gem-node \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
-
+# ==============================================================================
+# 3. THEME (Immediate load to prevent flickering)
+# ==============================================================================
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-history-substring-search
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit snippet OMZ::lib/theme-and-appearance.zsh
-zinit snippet OMZ::lib/history.zsh
-zinit load djui/alias-tips
+# ==============================================================================
+# 4. TURBO PLUGINS (The "Fast" Section)
+# ==============================================================================
 
+# Plugins with background loading
+zinit wait'0' lucid for \
+    atinit"zicompinit; zicdreplay" \
+        zsh-users/zsh-completions \
+    blockf \
+        zsh-users/zsh-autosuggestions \
+    atload"_zsh_autosuggest_start" \
+        zdharma-continuum/fast-syntax-highlighting \
+    Aloxaf/fzf-tab \
+    djui/alias-tips
+
+# Snippets with background loading (Fixed Syntax)
+zinit wait'0' lucid for \
+    OMZ::lib/history.zsh \
+    OMZ::lib/theme-and-appearance.zsh
+
+# ==============================================================================
+# 5. ENVIRONMENT & TOOL INIT
+# ==============================================================================
+export EDITOR="nvim"
+
+# fzf setup
+source <(fzf --zsh)
+export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
+  --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
+
+# zoxide setup
+eval "$(zoxide init --cmd cd zsh)"
+
+# ==============================================================================
+# 6. ALIASES & FUNCTIONS
+# ==============================================================================
 alias ls='ls --color=auto'
 alias ll='ls -al'
 alias lg='lazygit'
+
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
 }
 
-export EDITOR="nvim"
-
-eval "$(zoxide init --cmd cd zsh)"
-
 function prepend_sudo() {
-  BUFFER="sudo $BUFFER"
-  zle reset-prompt
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER != sudo\ * ]]; then
+    BUFFER="sudo $BUFFER"
+    CURSOR=$#BUFFER
+  fi
 }
 zle -N prepend_sudo
 bindkey '^S' prepend_sudo  
-stty -ixon
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 run() {
   for file in "$@"; do
-    if [[ ! -f "$file" ]]; then
-      echo "File not found: $file"
-      continue
-    fi
-
-    ext="${file##*.}"
-    name="${file:r}"
-
-    case "$ext" in
-      c)
-        gcc "$file" -o "/tmp/a.out" && "/tmp/a.out"
-        ;;
-      cpp|cc|cxx)
-        g++ "$file" -o "/tmp/a.out" && "/tmp/a.out"
-        ;;
-      py)
-        python3 "$file"
-        ;;
-      *)
-        echo "Unsupported file type: $file"
-        ;;
+    [[ ! -f "$file" ]] && echo "File not found: $file" && continue
+    case "${file##*.}" in
+      c)         gcc "$file" -o "/tmp/a.out" && "/tmp/a.out" ;;
+      cpp|cc|cx) g++ "$file" -o "/tmp/a.out" && "/tmp/a.out" ;;
+      py)        python3 "$file" ;;
+      *)         echo "Unsupported file type: $file" ;;
     esac
   done
 }
 
+# ==============================================================================
+# 7. COMPLETION SYSTEM TWEAKS
+# ==============================================================================
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no

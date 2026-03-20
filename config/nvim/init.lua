@@ -78,14 +78,14 @@ vim.keymap.set("n", "<S-tab>", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set({ "n", "v", "o" }, "L", "$")
 vim.keymap.set({ "n", "v", "o" }, "H", "^")
 
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>", { desc = "Move line up" })
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>", { desc = "Move line down" })
 
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>gi", { desc = "Move line up" })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>gi", { desc = "Move line down" })
 
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv", { desc = "Move selection up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv", { desc = "Move selection down" })
 
 -- Open help in the current window as a normal listed buffer
 vim.api.nvim_create_autocmd("FileType", {
@@ -101,7 +101,7 @@ if vim.fn.has('wsl') == 1 then
   vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
-      ['+'] = 'clip.exe',  
+      ['+'] = 'clip.exe',
     },
     paste = {
       ['+'] = '/usr/bin/win32yank',
@@ -124,7 +124,6 @@ end
 
 vim.keymap.set({ "n", "v" }, "Y", '"+y', { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "YY", '"+yy', { noremap = true, silent = true })
-vim.keymap.set({ "v", "n" }, "P", '"+p', { noremap = true, silent = true })
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -143,10 +142,9 @@ vim.keymap.set('n', '<leader>q', function()
     end
 end, { desc = 'Close buffer or quit' })
 
-require("config.lazy")
+vim.opt.diffopt:append("vertical")
 
--- terminal normal mode with <Esc>
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal: enter normal mode" })
+require("config.lazy")
 
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>')
@@ -163,6 +161,5 @@ vim.lsp.enable({
   "pyright",
   "ltex_plus",
 })
-
 
 
