@@ -43,9 +43,9 @@ zinit wait'0' lucid for \
     Aloxaf/fzf-tab \
     djui/alias-tips
 
+zinit snippet OMZ::lib/history.zsh
 # Snippets with background loading (Fixed Syntax)
 zinit wait'0' lucid for \
-    OMZ::lib/history.zsh \
     OMZ::lib/theme-and-appearance.zsh
 
 # ==============================================================================
