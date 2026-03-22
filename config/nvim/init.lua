@@ -91,9 +91,9 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv", { desc = "Move selection down" })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
   callback = function()
-    vim.bo.buflisted = true   -- make it show in bufferline and :bnext
-    vim.bo.buftype = ""       -- treat as a normal buffer
-    vim.cmd("wincmd o")       -- close any other windows in this tab
+    vim.bo.buflisted = true -- make it show in bufferline and :bnext
+    vim.bo.buftype = ""     -- treat as a normal buffer
+    vim.cmd("wincmd o")     -- close any other windows in this tab
   end
 })
 
@@ -133,14 +133,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.keymap.set('n', '<leader>q', function()
-    local listed_buffers = vim.fn.getbufinfo({ buflisted = 1 })
+  local listed_buffers = vim.fn.getbufinfo({ buflisted = 1 })
 
-    if #listed_buffers <= 1 then
-        vim.cmd('quit')
-    else
-        vim.cmd('bdelete')
-    end
+  if #listed_buffers <= 1 then
+    vim.cmd('quit')
+  else
+    vim.cmd('bdelete')
+  end
 end, { desc = 'Close buffer or quit' })
+
+vim.keymap.set({ 'o', 'v' }, 'A', 'Va')
 
 vim.opt.diffopt:append("vertical")
 
@@ -148,7 +150,7 @@ require("config.lazy")
 
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>')
-vim.keymap.set({'n', 'x'}, '<leader>F', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+vim.keymap.set({ 'n', 'x' }, '<leader>F', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
 
 vim.diagnostic.config({
   signs = false,
@@ -161,5 +163,3 @@ vim.lsp.enable({
   "pyright",
   "ltex_plus",
 })
-
-
