@@ -91,8 +91,6 @@ run() {
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-
 # enable vi-mode
 bindkey -v
+bindkey '^?' backward-delete-char
