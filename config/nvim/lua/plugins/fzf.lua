@@ -19,7 +19,7 @@ return {
     { "<leader>ff", "<cmd>FzfLua files<CR>" },
     { "<leader>fg", "<cmd>FzfLua grep<CR>" },
     { "<leader>fh", "<cmd>FzfLua history<CR>" },
-    { "<leader>ft", "<cmd>FzfLua treesitter<CR>" },
+    { "<leader>t", "<cmd>FzfLua treesitter<CR>" },
     { "<leader>fd", "<cmd>FzfLua zoxide<CR>" },
     { "gw", "<cmd>FzfLua diagnostics_workspace<CR>" },
     { "gr", "<cmd>FzfLua lsp_references<CR>" },

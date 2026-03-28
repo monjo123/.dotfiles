@@ -78,15 +78,6 @@ vim.keymap.set("n", "<S-tab>", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set({ "n", "v", "o" }, "L", "$")
 vim.keymap.set({ "n", "v", "o" }, "H", "^")
 
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>", { desc = "Move line up" })
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>", { desc = "Move line down" })
-
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>gi", { desc = "Move line up" })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>gi", { desc = "Move line down" })
-
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv", { desc = "Move selection up" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv", { desc = "Move selection down" })
-
 -- Open help in the current window as a normal listed buffer
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
@@ -160,5 +151,6 @@ vim.lsp.enable({
   "clangd",
   "pyright",
   "ltex_plus",
+  "bashls"
 })
 

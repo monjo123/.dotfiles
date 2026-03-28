@@ -68,34 +68,17 @@ alias ls='ls --color=auto'
 alias ll='ls -al'
 alias lg='lazygit'
 
-function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    IFS= read -r -d '' cwd < "$tmp"
-    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    rm -f -- "$tmp"
-}
-
-function prepend_sudo() {
-  [[ -z $BUFFER ]] && zle up-history
-  if [[ $BUFFER != sudo\ * ]]; then
-    BUFFER="sudo $BUFFER"
-    CURSOR=$#BUFFER
-  fi
-}
-zle -N prepend_sudo
-bindkey '^S' prepend_sudo  
-
 run() {
-  for file in "$@"; do
-    [[ ! -f "$file" ]] && echo "File not found: $file" && continue
-    case "${file##*.}" in
-      c)         gcc "$file" -o "/tmp/a.out" && "/tmp/a.out" ;;
-      cpp|cc|cx) g++ "$file" -o "/tmp/a.out" && "/tmp/a.out" ;;
-      py)        python3 "$file" ;;
-      *)         echo "Unsupported file type: $file" ;;
-    esac
-  done
+    for file in "$@"; do
+        [[ ! -f "$file" ]] && echo "File not found: $file" && continue
+        case "${file##*.}" in
+            c)         gcc "$file" -o "/tmp/a.out" -Wall && "/tmp/a.out" ;;
+            cpp|cc|cx) g++ "$file" -o "/tmp/a.out" -Wall && "/tmp/a.out" ;;
+            py)        python3 "$file" ;;
+            scm)       guile "$file" ;;
+            *)         echo "Unsupported file type: $file" ;;
+        esac
+    done
 }
 
 # ==============================================================================
@@ -106,3 +89,6 @@ autoload -Uz _zinit
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
+
+# enable vi-mode
+bindkey -v
