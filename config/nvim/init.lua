@@ -142,8 +142,6 @@ vim.keymap.set('n', '<leader>q', function()
   end
 end, { desc = 'Close buffer or quit' })
 
-vim.keymap.set({ 'o', 'v' }, 'A', 'Va')
-
 vim.opt.diffopt:append("vertical")
 
 require("config.lazy")
@@ -163,3 +161,4 @@ vim.lsp.enable({
   "pyright",
   "ltex_plus",
 })
+
