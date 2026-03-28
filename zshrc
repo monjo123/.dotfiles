@@ -58,6 +58,10 @@ source <(fzf --zsh)
 export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
+bindkey -r '\ec'
+bindkey '\eg' fzf-cd-widget
+export FZF_DEFAULT_OPTS="--bind 'tab:down,btab:up'"
+
 # zoxide setup
 eval "$(zoxide init --cmd cd zsh)"
 
