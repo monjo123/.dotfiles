@@ -7,11 +7,11 @@ return {
       -- Also use this to disable builtin textobjects. See |MiniAi.config|.
       custom_textobjects = {
         a = require('mini.ai').gen_spec.argument({
-          brackets = { '%b()', '%b[]', '%b{}' },
+          brackets = { '%b<>','%b()', '%b[]', '%b{}' },
           separator = '[,;]+'
         }),
         s = require('mini.ai').gen_spec.argument({
-          brackets = { '%b()', '%b[]', '%b{}' },
+          brackets = { '%b<>', '%b()', '%b[]', '%b{}' },
           separator = '[&|]+'
         }),
 

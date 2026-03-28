@@ -7,7 +7,7 @@ return {
     },
     windows = {
       preview = true,
-      width_preview = 30,
+      width_preview = 50,
     },
     mappings = {
       synchronize = '<CR>'
