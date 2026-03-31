@@ -1,3 +1,4 @@
 return {
-  "gpanders/nvim-parinfer"
+  "gpanders/nvim-parinfer",
+  ft = { "scheme" }
 }
