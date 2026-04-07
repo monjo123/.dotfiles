@@ -1,5 +1,6 @@
 return {
     "MunsMan/kitty-navigator.nvim",
+    event = "VeryLazy",
     opts = {
       keybindings = {
         left = "<A-h>",
