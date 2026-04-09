@@ -29,7 +29,7 @@ if vim.fn.argv(0) == "leetcode.nvim" then
     },
 
     storage = {
-      home = "/home/ocean/ContestProgramming/leetcode",
+      home = "~/leetcode",
       cache = vim.fn.stdpath("cache") .. "/leetcode",
     },
     image_support = true,
