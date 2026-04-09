@@ -93,3 +93,4 @@ autoload -Uz _zinit
 # enable vi-mode
 bindkey -v
 bindkey '^?' backward-delete-char
+

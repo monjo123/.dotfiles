@@ -39,6 +39,10 @@ vim.opt.mouse = "a"
 vim.opt.modifiable = true
 vim.opt.encoding = "UTF-8"
 
+vim.opt.wrap = true     
+vim.opt.linebreak = true 
+vim.opt.breakindent = true
+
 -- center screen when jumping
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
@@ -71,9 +75,6 @@ vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim<CR>", { desc = "Configuratio
 vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
 
--- buffer navigation
-vim.keymap.set("n", "<tab>", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<S-tab>", ":bprevious<CR>", { desc = "Previous buffer" })
 
 vim.keymap.set({ "n", "v", "o" }, "L", "$")
 vim.keymap.set({ "n", "v", "o" }, "H", "^")
@@ -135,8 +136,7 @@ end, { desc = 'Close buffer or quit' })
 
 vim.opt.diffopt:append("vertical")
 
-require("config.lazy")
-
+-- lsp
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>')
 vim.keymap.set({ 'n', 'x' }, '<leader>F', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
@@ -164,4 +164,28 @@ vim.lsp.enable({
   "ltex_plus",
   "bashls"
 })
+
+-- plugins
+vim.loader.enable()
+require("plugins.autopairs")
+require("plugins.auto-save")
+require("plugins.barbar")
+require("plugins.blink-cmp")
+require("plugins.flash")
+require("plugins.fzf")
+require("plugins.kitty-navigator")
+require("plugins.lazygit")
+require("plugins.leetcode")
+require("plugins.lsp_signture")
+require("plugins.lualine")
+require("plugins.mason")
+require("plugins.mini-files")
+require("plugins.nvim-parinfer")
+require("plugins.nvim-surround")
+require("plugins.nvim-treesitter")
+require("plugins.nvim-treesitter-textobjects")
+require("plugins.rainbow-delimiters")
+require("plugins.smear-cursor")
+require("plugins.uv")
+require("plugins.vague")
 
