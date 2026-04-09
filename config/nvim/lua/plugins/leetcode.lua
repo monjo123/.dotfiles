@@ -4,12 +4,8 @@ if vim.fn.argv(0) == "leetcode.nvim" then
     "https://github.com/kawre/leetcode.nvim",
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/MunifTanjim/nui.nvim",
-    "https://github.com/3rd/image.nvim",
   })
 
-  require("image").setup({
-    processor = "magick_cli",
-  })
   require("leetcode").setup({
     injector = {
       ["python3"] = {
@@ -32,9 +28,10 @@ if vim.fn.argv(0) == "leetcode.nvim" then
       home = "~/leetcode",
       cache = vim.fn.stdpath("cache") .. "/leetcode",
     },
-    image_support = true,
   })
   vim.cmd('Leet')
 end
+
+
 
 

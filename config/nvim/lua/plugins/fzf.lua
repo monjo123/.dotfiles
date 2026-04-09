@@ -21,7 +21,7 @@ local function fzf_lua()
   return require("fzf-lua")
 end
 
-vim.keymap.set("n", "<leader>ff", function() fzf_lua().files() end, { desc = "find files" })
+vim.keymap.set("n", "<leader>ff", function() fzf_lua().files({cwd = vim.fn.getcwd()}) end, { desc = "find files" })
 vim.keymap.set("n", "<leader>fg", function() fzf_lua().grep() end, { desc = "grep" })
 vim.keymap.set("n", "<leader>fh", function() fzf_lua().oldfiles() end, { desc = "history" })
 vim.keymap.set("n", "<leader>fd", function() fzf_lua().zoxide() end, { desc = "zoxide" })

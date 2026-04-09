@@ -39,9 +39,6 @@ vim.opt.mouse = "a"
 vim.opt.modifiable = true
 vim.opt.encoding = "UTF-8"
 
-vim.opt.wrap = true     
-vim.opt.linebreak = true 
-vim.opt.breakindent = true
 
 -- center screen when jumping
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
