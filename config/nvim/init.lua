@@ -164,4 +164,3 @@ vim.lsp.enable({
 
 -- plugins
 vim.loader.enable()
-
