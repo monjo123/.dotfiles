@@ -1,7 +1,12 @@
 -- lualine.lua
-vim.pack.add({
-  'https://github.com/nvim-lualine/lualine.nvim',
-  'https://github.com/nvim-tree/nvim-web-devicons',
+vim.api.nvim_create_autocmd("UIEnter", {
+    once = true,
+    callback = function()
+      vim.pack.add({
+        'https://github.com/nvim-lualine/lualine.nvim',
+        'https://github.com/nvim-tree/nvim-web-devicons',
+      })
+      require("lualine").setup()
+    end,
 })
-require("lualine").setup()
 
