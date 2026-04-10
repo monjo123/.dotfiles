@@ -1,6 +1,11 @@
 -- nvim-treesitter-textobjects
 vim.pack.add({{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" }})
 vim.g.no_plugin_maps = true
+require("nvim-treesitter-textobjects").setup {
+  select = {
+    lookahead = true,
+  }
+}
 
 vim.keymap.set({ "x", "o" }, "am", function()
   require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
