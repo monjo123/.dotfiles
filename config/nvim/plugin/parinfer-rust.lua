@@ -1,3 +1,4 @@
+-- parinfer-rust
 vim.api.nvim_create_autocmd('PackChanged', { callback = function(ev)
   local name, kind = ev.data.spec.name, ev.data.kind
   if name == 'parinfer-rust' and (kind == 'install' or kind == 'update') then
