@@ -55,7 +55,7 @@ export EDITOR="nvim"
 
 # fzf setup
 source <(fzf --zsh)
-export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always {} || cat {}' \
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} || cat {}' \
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
 bindkey -r '\ec'

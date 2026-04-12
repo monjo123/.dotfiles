@@ -1,4 +1,3 @@
--- basic setting
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -117,7 +116,7 @@ vim.keymap.set({ "n", "v" }, "YY", '"+yy', { noremap = true, silent = true })
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 

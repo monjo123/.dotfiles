@@ -25,7 +25,7 @@ if vim.fn.argv(0) == "leetcode.nvim" then
     },
 
     storage = {
-      home = "~/leetcode",
+      home = "~/Projects/leetcode",
       cache = vim.fn.stdpath("cache") .. "/leetcode",
     },
   })

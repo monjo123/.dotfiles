@@ -1,6 +1,6 @@
 -- barbar
 vim.api.nvim_create_autocmd('BufAdd', { once = true, callback = function()
-  vim.pack.add({ 
+  vim.pack.add({
     'https://github.com/nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     'https://github.com/romgrk/barbar.nvim',
     'https://github.com/lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
