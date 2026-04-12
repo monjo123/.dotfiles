@@ -15,5 +15,5 @@ vim.api.nvim_create_autocmd('BufAdd', { once = true, callback = function()
   vim.keymap.set('n', '<leader>b', '<Cmd>BufferPick<CR>')
 end })
 
-vim.keymap.set("n", "<tab>", ":BufferNext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<S-tab>", ":BufferPrevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<tab>", ":BufferNext<CR>", { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<S-tab>", ":BufferPrevious<CR>", { silent = true, desc = "Previous buffer" })

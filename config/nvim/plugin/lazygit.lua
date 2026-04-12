@@ -8,6 +8,6 @@ vim.keymap.set("n", "<leader>g", function()
   end
 
   require("lazygit").lazygit()
-end, { desc = "LazyGit" })
+end, { silent = true, desc = "LazyGit" })
 
 

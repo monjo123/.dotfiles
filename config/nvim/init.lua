@@ -17,7 +17,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
 -- visual setting
 vim.opt.termguicolors = true
@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- open config
-vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim<CR>", { desc = "Configuration" })
+vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim<CR>", { silent = true, desc = "Configuration" })
 
 -- Performance improvements
 vim.opt.redrawtime = 10000
