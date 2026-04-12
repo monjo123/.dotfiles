@@ -86,10 +86,6 @@
       "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
-    "nvim-parinfer": {
-      "rev": "3968e669d9f02589aa311d33cb475b16b27c5fbb",
-      "src": "https://github.com/gpanders/nvim-parinfer"
-    },
     "nvim-surround": {
       "rev": "61319d4bd1c5e336e197defa15bd104c51f0fb29",
       "src": "https://github.com/kylechui/nvim-surround",
@@ -107,6 +103,10 @@
     "nvim-web-devicons": {
       "rev": "c72328a5494b4502947a022fe69c0c47e53b6aa6",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "parinfer-rust": {
+      "rev": "845bfbb9916687cba5b6bae088c9eab70dbb83a3",
+      "src": "https://github.com/eraserhd/parinfer-rust"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
