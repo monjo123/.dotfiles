@@ -124,7 +124,7 @@ vim.keymap.set('n', '<leader>q', function()
   local listed_buffers = vim.fn.getbufinfo({ buflisted = 1 })
 
   if #listed_buffers <= 1 then
-    vim.cmd('quit')
+    vim.cmd('quit!')
   else
     vim.cmd('bdelete')
   end
