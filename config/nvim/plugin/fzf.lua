@@ -26,7 +26,7 @@ vim.keymap.set("n", "<leader>fg", function() fzf_lua().grep() end, { silent = tr
 vim.keymap.set("n", "<leader>fh", function() fzf_lua().oldfiles() end, { silent = true, desc = "history" })
 vim.keymap.set("n", "<leader>fd", function() fzf_lua().zoxide() end, { silent = true, desc = "zoxide" })
 vim.keymap.set("n", "<leader>t", function() fzf_lua().treesitter() end, { silent = true, desc = "treesitter" })
-vim.keymap.set("n", "gw", function() fzf_lua().diagnostics_workspace() end, { silent = true, desc = "diagnostics workspace" })
+vim.keymap.set("n", "<leader>d", function() fzf_lua().diagnostics_workspace() end, { silent = true, desc = "diagnostics workspace" })
 vim.keymap.set("n", "gr", function() fzf_lua().lsp_references() end, { silent = true, desc = "lsp references" })
 vim.keymap.set("n", "gd", function() fzf_lua().lsp_definitions() end, { silent = true, desc = "lsp definitions" })
 vim.keymap.set("n", "gD", function() fzf_lua().lsp_declarations() end, { silent = true, desc = "lsp declarations" })
