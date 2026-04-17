@@ -150,8 +150,19 @@ vim.lsp.config('*', {
 
 vim.diagnostic.config({
   signs = false,
-  virtual_text = true,
+  virtual_text = false, 
 })
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focus = false,
+      wrap = true,
+      border = "rounded",
+    })
+  end,
+})
+
 
 vim.lsp.enable({
   "lua_ls",

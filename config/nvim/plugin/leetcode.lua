@@ -4,9 +4,13 @@ if vim.fn.argv(0) == "leetcode.nvim" then
     "https://github.com/kawre/leetcode.nvim",
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/MunifTanjim/nui.nvim",
+    "https://github.com/ibhagwan/fzf-lua",
+    "https://github.com/nvim-tree/nvim-web-devicons",
   })
 
   require("leetcode").setup({
+    picker = { provider = fzf },
+
     injector = {
       ["python3"] = {
         imports = function(default_imports)
