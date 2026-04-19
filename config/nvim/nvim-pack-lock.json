@@ -4,6 +4,10 @@
       "rev": "979b6c82f60cfa80f4cf437d77446d0ded0addf0",
       "src": "https://github.com/pocco81/auto-save.nvim"
     },
+    "barbar.nvim": {
+      "rev": "539d73def39c9172b4d4d769f14090e08f37b29d",
+      "src": "https://github.com/romgrk/barbar.nvim"
+    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
@@ -25,9 +29,17 @@
       "rev": "834246377489f9a1e6d4df570a7874a48c644b56",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
+    "gitsigns.nvim": {
+      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "kitty-navigator.nvim": {
       "rev": "116b88674503edb21481bebdd62212485817fa4a",
       "src": "https://github.com/MunsMan/kitty-navigator.nvim"
+    },
+    "leetcode.nvim": {
+      "rev": "fdd3f91800b3983e27bc9fcfb99cfa7293d7f11a",
+      "src": "https://github.com/kawre/leetcode.nvim"
     },
     "lsp_signature.nvim": {
       "rev": "a65b38f260cc3470a05b4afb84c8d868617d476d",
@@ -41,6 +53,10 @@
       "rev": "22c64f010eef047ed270e29e7cc266cd4740787e",
       "src": "https://github.com/nvim-mini/mini.files",
       "version": "'stable'"
+    },
+    "nui.nvim": {
+      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
@@ -63,6 +79,10 @@
     "nvim-web-devicons": {
       "rev": "c72328a5494b4502947a022fe69c0c47e53b6aa6",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rainbow-delimiters.nvim": {
       "rev": "08783ec022e7ddefe0f12a16f1ac4968f55478b0",
