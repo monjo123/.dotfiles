@@ -1,11 +1,12 @@
 -- neogit
-vim.api.nvim_create_autocmd("BufUnload", {
-  group = vim.api.nvim_create_augroup("NeogitAutoExit", { clear = true }),
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
   pattern = "NeogitStatus",
   callback = function()
-    if vim.g.neogit_mode == 1 then
-      vim.cmd("quitall")
-    end
+    vim.keymap.set("n", "<CR>", function()
+      vim.g.neogit_mode = 0
+      return "<CR>"
+    end, { buffer = true, expr = true, remap = true })
   end,
 })
 
