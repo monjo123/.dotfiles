@@ -69,7 +69,8 @@ eval "$(zoxide init --cmd cd zsh)"
 # ==============================================================================
 alias ls='ls --color=auto'
 alias ll='ls -al'
-alias lg='lazygit'
+# alias lg='lazygit'
+alias ng='nvim -c "let g:neogit_mode = 1 | Neogit"'
 
 run() {
     for file in "$@"; do
