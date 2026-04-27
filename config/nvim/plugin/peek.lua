@@ -16,6 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
     })
     vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
     vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+    vim.keymap.set("n", "<leader>p", function() require("peek").open() end, { silent = true })
   end,
 })
 
