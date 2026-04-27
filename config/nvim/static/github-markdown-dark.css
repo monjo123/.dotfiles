@@ -1,4 +1,9 @@
 /*dark */
+body {
+  background-color: #0d1117;
+  color: #f0f6fc;
+}
+
 .markdown-body {
   color-scheme: dark;
   /** CSS default easing. Use for hover state changes and micro-interactions. */

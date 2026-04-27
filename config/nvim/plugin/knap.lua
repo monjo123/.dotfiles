@@ -10,23 +10,21 @@ vim.api.nvim_create_autocmd("FileType", {
 local css_path = vim.fn.expand("~/.config/nvim/static/github-markdown-dark.css")
 
 vim.g.knap_settings = {
-    ["htmltohtml"] = [[A=/tmp/test ; B="${A%.html}-preview.html" ; sed 's/<\/head>/<meta http-equiv="refresh" content="1" ><\/head>/' "$A" > "$B"]],
-    ["htmltohtmlviewerlaunch"] = [[A=/tmp/test ; B="${A%.html}-preview.html" ; brave "$B"]],
+    ["htmltohtmlviewerlaunch"] = [[live-server --quiet --browser=brave --open=%outputfile% --watch=%outputfile% --wait=800]],
     ["htmltohtmlviewerrefresh"] = "none",
 
-    ["mdtohtml"] = [[A="/tmp/test" ; B="${A%.html}-preview.html" ; ]] ..
-                   [[pandoc --standalone ]] ..
+    ["mdtohtml"] = [[pandoc --standalone --embed-resources ]] ..
                    [[--css="]] .. css_path .. [[" ]] ..
-                   [[--variable=header-includes:'<style>body{background-color:#0d1117;margin:0;padding:45px;}</style>' ]] ..
+                   [[--wrap=none ]] ..
                    [[--variable=include-before:'<article class="markdown-body">' ]] ..
                    [[--variable=include-after:'</article>' ]] ..
-                   [[%docroot% -o "$A" && ]] ..
-                   [[sed 's/<\/head>/<meta http-equiv="refresh" content="1" ><\/head>/' "$A" > "$B"]],
-    ["mdtohtmlviewerlaunch"] = [[A=/tmp/test ; brave "${A%.html}-preview.html"]],
+                   [[%docroot% -o /tmp/preview.html]],
+
+    ["mdtohtmlviewerlaunch"] = [[live-server /tmp --quiet --browser=brave --open=preview.html --watch=preview.html --wait=800]],
     ["mdtohtmlviewerrefresh"] = "none",
 
-    ["textopdfviewerlaunch"] = [[brave %outputfile%]],
+    ["textopdfviewerlaunch"] = [[evince %outputfile%]],
     ["textopdfviewerrefresh"] = "none",
-    ["textopdfforwardjump"] = [[brave %outputfile%]]
+    ["textopdfforwardjump"] = [[evince %outputfile%]]
 }
 
