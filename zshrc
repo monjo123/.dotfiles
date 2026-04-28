@@ -53,8 +53,11 @@ zinit wait'0' lucid for \
 # ==============================================================================
 export EDITOR="nvim"
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
 # fzf setup
-source <(fzf --zsh)
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} || cat {}' \
   --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
@@ -73,16 +76,41 @@ alias ll='ls -al'
 alias ng='nvim -c "let g:neogit_mode = 1 | Neogit"'
 
 run() {
+    # Separate files by extension
+    local c_files=()
+    local cpp_files=()
+    local py_files=()
+    local scm_files=()
+    local others=()
+
     for file in "$@"; do
         [[ ! -f "$file" ]] && echo "File not found: $file" && continue
+        
         case "${file##*.}" in
-            c)         gcc "$file" -o "/tmp/a.out" -Wall && "/tmp/a.out" ;;
-            cpp|cc|cx) g++ "$file" -o "/tmp/a.out" -Wall && "/tmp/a.out" ;;
-            py)        python3 "$file" ;;
-            scm)       guile "$file" ;;
-            *)         echo "Unsupported file type: $file" ;;
+            c)             c_files+=("$file") ;;
+            cpp|cc|cx)     cpp_files+=("$file") ;;
+            py)            py_files+=("$file") ;;
+            scm)           scm_files+=("$file") ;;
+            *)             others+=("$file") ;;
         esac
     done
+
+    # Logic for C: Compile all .c files together if any exist
+    if (( ${#c_files[@]} > 0 )); then
+        echo "Compiling C files: ${c_files[*]}"
+        gcc "${c_files[@]}" -o "/tmp/a.out" -Wall && "/tmp/a.out"
+    fi
+
+    # Logic for C++: Compile all .cpp files together
+    if (( ${#cpp_files[@]} > 0 )); then
+        echo "Compiling C++ files: ${cpp_files[*]}"
+        g++ "${cpp_files[@]}" -o "/tmp/a.out" -Wall && "/tmp/a.out"
+    fi
+
+    # Logic for interpreted languages (run one by one)
+    for f in "${py_files[@]}"; do python3 "$f"; done
+    for f in "${scm_files[@]}"; do guile "$f"; done
+    for f in "${others[@]}"; do echo "Unsupported file type: $f"; done
 }
 
 # ==============================================================================
@@ -91,7 +119,4 @@ run() {
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# enable vi-mode
-bindkey -v
-bindkey '^?' backward-delete-char
 
