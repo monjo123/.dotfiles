@@ -61,7 +61,7 @@ export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} || cat 
 
 export FZF_DEFAULT_OPTS="--bind 'tab:down,btab:up'"
 
-source <(fzf --zsh)
+FZF_ALT_C_COMMAND= source <(fzf --zsh)
 
 
 # zoxide setup
