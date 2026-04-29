@@ -53,16 +53,16 @@ zinit wait'0' lucid for \
 # ==============================================================================
 export EDITOR="nvim"
 
-zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
 
 # fzf setup
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} || cat {}' \
-  --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
+    --preview-window=right:60% --bind 'ctrl-/:toggle-preview'"
 
-bindkey -r '\ec'
 export FZF_DEFAULT_OPTS="--bind 'tab:down,btab:up'"
+
+source <(fzf --zsh)
+
 
 # zoxide setup
 eval "$(zoxide init --cmd cd zsh)"
