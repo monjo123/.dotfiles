@@ -1,4 +1,5 @@
-# for zsh
+sudo pacman -S zsh nvim kitty 
+
 mkdir -p ~/.config
 ln -s ~/.dotfiles/config/* ~/.config/
 ln -s ~/.dotfiles/zshrc ~/.zshrc
