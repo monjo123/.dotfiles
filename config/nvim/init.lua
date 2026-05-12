@@ -169,7 +169,8 @@ vim.lsp.enable({
   "clangd",
   "pyright",
   "ltex_plus",
-  "bashls"
+  "bashls",
+  "ts_ls"
 })
 
 -- plugins
