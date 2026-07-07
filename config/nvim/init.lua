@@ -163,6 +163,14 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end,
 })
 
+vim.keymap.set("n", "<leader>d", function()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+  else
+    vim.diagnostic.disable()
+  end
+end, { desc = "Toggle Diagnostics" })
+
 
 vim.lsp.enable({
   "lua_ls",
