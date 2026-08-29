@@ -76,7 +76,6 @@ alias ll='ls -al'
 alias ng='nvim -c "let g:neogit_mode = 1 | Neogit"'
 
 run() {
-    # Separate files by extension
     local c_files=()
     local cpp_files=()
     local py_files=()
@@ -84,30 +83,42 @@ run() {
     local others=()
 
     for file in "$@"; do
-        [[ ! -f "$file" ]] && echo "File not found: $file" && continue
-        
-        case "${file##*.}" in
+        if [[ ! -f "$file" ]]; then
+            echo "File not found: $file" >&2
+            continue
+        fi
+
+        local base="${file##*/}"     # strip directory, so paths with dots don't confuse things
+        local ext="${base##*.}"
+        [[ "$ext" == "$base" ]] && ext=""  # no dot in filename -> no extension
+
+        case "$ext" in
             c)             c_files+=("$file") ;;
-            cpp|cc|cx)     cpp_files+=("$file") ;;
+            cpp|cc|cxx)    cpp_files+=("$file") ;;   # note: fixed cx -> cxx, the common C++ ext
             py)            py_files+=("$file") ;;
             scm)           scm_files+=("$file") ;;
             *)             others+=("$file") ;;
         esac
     done
 
-    # Logic for C: Compile all .c files together if any exist
     if (( ${#c_files[@]} > 0 )); then
         echo "Compiling C files: ${c_files[*]}"
-        gcc "${c_files[@]}" -o "/tmp/a.out" -Wall && "/tmp/a.out"
+        if gcc "${c_files[@]}" -o "/tmp/a.out" -Wall; then
+            "/tmp/a.out"
+        else
+            echo "C compilation failed" >&2
+        fi
     fi
 
-    # Logic for C++: Compile all .cpp files together
     if (( ${#cpp_files[@]} > 0 )); then
         echo "Compiling C++ files: ${cpp_files[*]}"
-        g++ "${cpp_files[@]}" -o "/tmp/a.out" -Wall && "/tmp/a.out"
+        if g++ "${cpp_files[@]}" -o "$tmpdir/a.out" -Wall; then
+            "/tmp/a.out"
+        else
+            echo "C++ compilation failed" >&2
+        fi
     fi
 
-    # Logic for interpreted languages (run one by one)
     for f in "${py_files[@]}"; do python3 "$f"; done
     for f in "${scm_files[@]}"; do guile "$f"; done
     for f in "${others[@]}"; do echo "Unsupported file type: $f"; done
