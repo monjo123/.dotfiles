@@ -25,22 +25,18 @@ vim.api.nvim_create_autocmd('InsertEnter', { once = true, callback = function()
 
       ['<Tab>'] = { 
         'select_next',      
-        'snippet_forward',
         'fallback'      
       },
       ['<S-Tab>'] = { 
         'select_prev', 
-        'snippet_backward', 
         'fallback'         
       }, 
 
       ['<Up>'] = { 
-        'select_next',      
         'snippet_forward',
         'fallback'      
       },
       ['<Down>'] = { 
-        'select_prev', 
         'snippet_backward', 
         'fallback'         
       },
