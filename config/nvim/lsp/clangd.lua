@@ -65,6 +65,7 @@ end
 return {
   cmd = { 
     'clangd',
+    '--query-driver=/opt/homebrew/bin/g++-*',
   },
 
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
