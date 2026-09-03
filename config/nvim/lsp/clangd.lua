@@ -65,13 +65,6 @@ end
 return {
   cmd = { 
     'clangd',
-    '--query-driver=/opt/homebrew/bin/g++-*',
-  },
-  init_options = {
-    fallbackFlags = {
-      '-isystem',
-      '/opt/homebrew/Cellar/gcc/16.2.0/include/c++/16/aarch64-apple-darwin25/',
-    },
   },
 
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
