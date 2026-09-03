@@ -1,4 +1,4 @@
-sudo pacman -S zsh nvim kitty 
+sudo pacman -S zsh nvim kitty fzf treesitter-cli
 
 mkdir -p ~/.config
 ln -s ~/.dotfiles/config/* ~/.config/

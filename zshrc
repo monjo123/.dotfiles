@@ -112,7 +112,7 @@ run() {
 
     if (( ${#cpp_files[@]} > 0 )); then
         echo "Compiling C++ files: ${cpp_files[*]}"
-        if g++ "${cpp_files[@]}" -o "$tmpdir/a.out" -Wall; then
+        if g++ "${cpp_files[@]}" -o "/tmp/a.out" -Wall; then
             "/tmp/a.out"
         else
             echo "C++ compilation failed" >&2
