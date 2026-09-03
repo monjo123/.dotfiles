@@ -74,7 +74,6 @@ alias ls='ls --color=auto'
 alias ll='ls -al'
 # alias lg='lazygit'
 alias ng='nvim -c "let g:neogit_mode = 1 | Neogit"'
-
 run() {
     local c_files=()
     local cpp_files=()
@@ -82,19 +81,28 @@ run() {
     local scm_files=()
     local others=()
 
+    # Detect OS-specific or available compiler binaries
+    local c_compiler="gcc"
+    local cpp_compiler="g++"
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        command -v gcc-16 >/dev/null 2>&1 && c_compiler="gcc-16"
+        command -v g++-16 >/dev/null 2>&1 && cpp_compiler="g++-16"
+    fi
+
     for file in "$@"; do
         if [[ ! -f "$file" ]]; then
             echo "File not found: $file" >&2
             continue
         fi
 
-        local base="${file##*/}"     # strip directory, so paths with dots don't confuse things
+        local base="${file##*/}"     # strip directory
         local ext="${base##*.}"
-        [[ "$ext" == "$base" ]] && ext=""  # no dot in filename -> no extension
+        [[ "$ext" == "$base" ]] && ext=""  # no extension
 
         case "$ext" in
             c)             c_files+=("$file") ;;
-            cpp|cc|cxx)    cpp_files+=("$file") ;;   # note: fixed cx -> cxx, the common C++ ext
+            cpp|cc|cxx)    cpp_files+=("$file") ;;
             py)            py_files+=("$file") ;;
             scm)           scm_files+=("$file") ;;
             *)             others+=("$file") ;;
@@ -102,8 +110,8 @@ run() {
     done
 
     if (( ${#c_files[@]} > 0 )); then
-        echo "Compiling C files: ${c_files[*]}"
-        if gcc "${c_files[@]}" -o "/tmp/a.out" -Wall; then
+        echo "Compiling C files with $c_compiler: ${c_files[*]}"
+        if "$c_compiler" "${c_files[@]}" -o "/tmp/a.out" -Wall; then
             "/tmp/a.out"
         else
             echo "C compilation failed" >&2
@@ -111,8 +119,8 @@ run() {
     fi
 
     if (( ${#cpp_files[@]} > 0 )); then
-        echo "Compiling C++ files: ${cpp_files[*]}"
-        if g++ "${cpp_files[@]}" -o "/tmp/a.out" -Wall; then
+        echo "Compiling C++ files with $cpp_compiler: ${cpp_files[*]}"
+        if "$cpp_compiler" "${cpp_files[@]}" -o "/tmp/a.out" -Wall; then
             "/tmp/a.out"
         else
             echo "C++ compilation failed" >&2
