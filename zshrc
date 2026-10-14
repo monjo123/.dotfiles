@@ -138,4 +138,3 @@ run() {
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-setopt CORRECT_ALL

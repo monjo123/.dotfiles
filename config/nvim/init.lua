@@ -47,7 +47,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- key mapping
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
 
 -- better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
@@ -178,8 +178,11 @@ vim.lsp.enable({
   "pyright",
   "ltex_plus",
   "bashls",
-  "ts_ls"
+  "ts_ls",
+  "texlab"
 })
+
+vim.g.netrw_silent = 1
 
 -- plugins
 vim.loader.enable()

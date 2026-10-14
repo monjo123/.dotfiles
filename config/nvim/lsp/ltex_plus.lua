@@ -62,6 +62,7 @@ return {
   end,
   settings = {
     ltex = {
+      language = "en_US",
       enabled = {
         'asciidoc',
         'bib',

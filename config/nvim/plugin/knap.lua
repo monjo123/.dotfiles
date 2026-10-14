@@ -1,30 +1,72 @@
--- knap
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { 'markdown', 'tex', 'html' },
+
+
+  pattern = { "markdown", "tex", "html" },
+
   callback = function()
-    vim.pack.add({ 'https://github.com/frabjous/knap' })
-    vim.keymap.set( 'n' ,'<leader>p', function() require("knap").toggle_autopreviewing() end)
+    vim.pack.add({
+      "https://github.com/frabjous/knap",
+    })
+
+    vim.keymap.set("n", "<leader>p", function()
+      require("knap").process_once()
+    end)
   end,
 })
 
-local css_path = vim.fn.expand("~/.config/nvim/static/github-markdown-dark.css")
 
-vim.g.knap_settings = {
-    ["htmltohtmlviewerlaunch"] = [[live-server --quiet --browser=brave --open=%outputfile% --watch=%outputfile% --wait=800]],
-    ["htmltohtmlviewerrefresh"] = "none",
+local css_path = vim.fn.expand(
+  "~/.config/nvim/static/github-markdown-dark.css"
+)
 
-    ["mdtohtml"] = [[pandoc --standalone --embed-resources ]] ..
-                   [[--css="]] .. css_path .. [[" ]] ..
-                   [[--wrap=none ]] ..
-                   [[--variable=include-before:'<article class="markdown-body">' ]] ..
-                   [[--variable=include-after:'</article>' ]] ..
-                   [[%docroot% -o /tmp/preview.html]],
 
-    ["mdtohtmlviewerlaunch"] = [[live-server /tmp --quiet --browser=brave --open=preview.html --watch=preview.html --wait=800]],
-    ["mdtohtmlviewerrefresh"] = "none",
+local gknapsettings = {
+  ---------------------------------------------------------------------------
+  -- LaTeX
+  ---------------------------------------------------------------------------
 
-    ["textopdfviewerlaunch"] = [[evince %outputfile%]],
-    ["textopdfviewerrefresh"] = "none",
-    ["textopdfforwardjump"] = [[evince %outputfile%]]
+  texoutputext = "pdf",
+
+  textopdf = [[
+    sh -c 'xelatex -interaction=batchmode -halt-on-error -synctex=1 "$1"; status=$?; if [ "$status" -eq 0 ]; then rm -f *.aux *.out *.synctex.gz *.toc *.fdb_latexmk *.fls *.log; fi; exit "$status"' sh %docroot%
+  ]],
+
+
+  ---------------------------------------------------------------------------
+  -- PDF Viewer
+  ---------------------------------------------------------------------------
+
+  textopdfviewerlaunch = "open -a Skim %outputfile%",
+  textopdfviewerrefresh = "none",
+  textopdfforwardjump = "open -a Skim %outputfile%",
+
+
+  ---------------------------------------------------------------------------
+  -- Error message
+  ---------------------------------------------------------------------------
+
+  textopdfshorterror = [[
+    A=%outputfile%
+    LOGFILE="${A%.pdf}.log"
+
+    if [ -f "$LOGFILE" ]; then
+      if grep -q '^!' "$LOGFILE"; then
+        grep -A 6 -m 1 '^!' "$LOGFILE"
+      else
+        tail -n 30 "$LOGFILE"
+      fi
+    else
+      echo "LaTeX compilation failed, but no .log file was found."
+    fi
+  ]],
+
+
+  ---------------------------------------------------------------------------
+  -- KNAP delay
+  ---------------------------------------------------------------------------
+
+  delay = 250,
 }
 
+
+vim.g.knap_settings = gknapsettings
