@@ -61,6 +61,7 @@ local gknapsettings = {
   ]],
 
 
+  mdtohtmlviewerlaunch = 'open -a "Brave Browser" --args --new-window "%outputfile%"',
   ---------------------------------------------------------------------------
   -- KNAP delay
   ---------------------------------------------------------------------------
