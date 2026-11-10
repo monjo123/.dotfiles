@@ -8,22 +8,16 @@ fi
 # ==============================================================================
 # 2. ZINIT BOOTSTRAP
 # ==============================================================================
-# Tool paths and the package-manager-specific Zinit location from install.sh.
+# Tool paths from install.sh; Zinit is managed here on every platform.
 [[ ! -r "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/env.sh" ]] || \
     source "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/env.sh"
 
-if [[ -n "${DOTFILES_ZINIT_SCRIPT:-}" ]]; then
-    if [[ ! -r "$DOTFILES_ZINIT_SCRIPT" ]]; then
-        print -u2 "Zinit not found: $DOTFILES_ZINIT_SCRIPT; rerun ~/.dotfiles/install.sh"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then
+    mkdir -p "$(dirname "$ZINIT_HOME")" || return 1
+    if ! git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"; then
+        print -u2 'Zinit installation failed; check the network and open a new zsh to retry.'
         return 1
-    fi
-    ZINIT_HOME="${DOTFILES_ZINIT_SCRIPT:h}"
-else
-    # Retain the existing manual setup when no installer environment exists.
-    ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-    if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then
-        mkdir -p "$(dirname "$ZINIT_HOME")"
-        git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
     fi
 fi
 source "${ZINIT_HOME}/zinit.zsh"
