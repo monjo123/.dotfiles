@@ -8,10 +8,23 @@ fi
 # ==============================================================================
 # 2. ZINIT BOOTSTRAP
 # ==============================================================================
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [ ! -d "$ZINIT_HOME" ]; then
-    mkdir -p "$(dirname "$ZINIT_HOME")"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+# Tool paths and the package-manager-specific Zinit location from install.sh.
+[[ ! -r "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/env.sh" ]] || \
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/env.sh"
+
+if [[ -n "${DOTFILES_ZINIT_SCRIPT:-}" ]]; then
+    if [[ ! -r "$DOTFILES_ZINIT_SCRIPT" ]]; then
+        print -u2 "Zinit not found: $DOTFILES_ZINIT_SCRIPT; rerun ~/.dotfiles/install.sh"
+        return 1
+    fi
+    ZINIT_HOME="${DOTFILES_ZINIT_SCRIPT:h}"
+else
+    # Retain the existing manual setup when no installer environment exists.
+    ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+    if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then
+        mkdir -p "$(dirname "$ZINIT_HOME")"
+        git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    fi
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
@@ -61,16 +74,24 @@ export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} || cat 
 
 export FZF_DEFAULT_OPTS="--bind 'tab:down,btab:up'"
 
-FZF_ALT_C_COMMAND= source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+    FZF_ALT_C_COMMAND= source <(fzf --zsh)
+fi
 
 
 # zoxide setup
-eval "$(zoxide init --cmd cd zsh)"
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
 
 # ==============================================================================
 # 6. ALIASES & FUNCTIONS
 # ==============================================================================
-alias ls='ls --color=auto'
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+fi
 alias ll='ls -al'
 # alias lg='lazygit'
 alias ng='nvim -c "let g:neogit_mode = 1 | Neogit"'
